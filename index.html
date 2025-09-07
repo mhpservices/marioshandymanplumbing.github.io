@@ -16,32 +16,26 @@
     <!-- Brand accent + testimonial styles (load AFTER main.css to override) -->
     <style>
       :root{
-        --accent: #D84838;      /* strong red from your faucet image */
+        --accent: #D84838;      /* strong red */
         --brand-blue: #1880C8;  /* blue for testimonial stars */
       }
 
-      /* Force ALL template accents to use our red (not coral) */
+      /* Replace template accents with our red */
       .major > :first-child:after,
       .major > h1:after,
       .major > h2:after,
       .major > h3:after { background-color: var(--accent) !important; }
 
-      /* Icons anywhere (features, contact, etc.) */
-      .icon,
-      .icon:before,
-      .icon.solid,
-      .icon.solid:before,
-      .features .icon,
-      .features .icon:before,
+      /* Icons & primary elements */
+      .icon, .icon:before,
+      .icon.solid, .icon.solid:before,
+      .features .icon, .features .icon:before,
       .contact .icon:before { color: var(--accent) !important; }
 
-      /* Primary buttons and accent borders */
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
-      .button,
-      a { --accent-color: var(--accent); }
 
-      /* Catch any hard-coded coral (#f56a6a) that might slip through */
+      /* Catch any hard-coded coral from the theme */
       [style*="#f56a6a"] {
         color: var(--accent) !important;
         border-color: var(--accent) !important;
@@ -149,61 +143,17 @@
             </div>
           </section>
 
-          <!-- Example posts (kept from template) -->
-          <section>
+          <!-- About -->
+          <section id="about">
             <header class="major">
-              <h2>Ipsum sed dolor</h2>
+              <h2>About</h2>
             </header>
-            <div class="posts">
-              <article>
-                <a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-                <h3>Interdum aenean</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                <ul class="actions">
-                  <li><a href="#" class="button">More</a></li>
-                </ul>
-              </article>
-              <article>
-                <a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
-                <h3>Nulla amet dolore</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                <ul class="actions">
-                  <li><a href="#" class="button">More</a></li>
-                </ul>
-              </article>
-              <article>
-                <a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
-                <h3>Tempus ullamcorper</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                <ul class="actions">
-                  <li><a href="#" class="button">More</a></li>
-                </ul>
-              </article>
-              <article>
-                <a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
-                <h3>Sed etiam facilis</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                <ul class="actions">
-                  <li><a href="#" class="button">More</a></li>
-                </ul>
-              </article>
-              <article>
-                <a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
-                <h3>Feugiat lorem aenean</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                <ul class="actions">
-                  <li><a href="#" class="button">More</a></li>
-                </ul>
-              </article>
-              <article>
-                <a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
-                <h3>Amet varius aliquam</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                <ul class="actions">
-                  <li><a href="#" class="button">More</a></li>
-                </ul>
-              </article>
-            </div>
+            <p>
+              Mario Wolthers has been a plumber since 1995 and has proudly served the Las Vegas area for more than 20 years. 
+              Known for responsible, dependable service, Mario treats every home like his own—showing up on time, communicating clearly, 
+              delivering meticulous, code-compliant work, and double-checking every connection. 
+              He always follows up to make sure the job is done right and you’re completely satisfied.
+            </p>
           </section>
 
         </div>
