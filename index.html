@@ -13,19 +13,40 @@
     <!-- Font Awesome 6 for plumbing icons + stars -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- Brand accent + testimonial styles -->
+    <!-- Brand accent + testimonial styles (load AFTER main.css to override) -->
     <style>
       :root{
-        --accent: #D84838;      /* red from your faucet image */
-        --brand-blue: #1880C8;  /* blue from your faucet image (stars) */
+        --accent: #D84838;      /* strong red from your faucet image */
+        --brand-blue: #1880C8;  /* blue for testimonial stars */
       }
 
-      /* Replace template's coral accents with your red */
-      .major > :first-child:after { background-color: var(--accent) !important; }
-      .icon.solid, .icon.brands, a.icon.solid, a.icon.brands { color: var(--accent) !important; }
-      .button.primary, .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
-      /* Catch any hard-coded coral that might exist in the theme */
-      [style*="#f56a6a"] { color: var(--accent) !important; border-color: var(--accent) !important; background-color: var(--accent) !important; }
+      /* Force ALL template accents to use our red (not coral) */
+      .major > :first-child:after,
+      .major > h1:after,
+      .major > h2:after,
+      .major > h3:after { background-color: var(--accent) !important; }
+
+      /* Icons anywhere (features, contact, etc.) */
+      .icon,
+      .icon:before,
+      .icon.solid,
+      .icon.solid:before,
+      .features .icon,
+      .features .icon:before,
+      .contact .icon:before { color: var(--accent) !important; }
+
+      /* Primary buttons and accent borders */
+      .button.primary,
+      .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
+      .button,
+      a { --accent-color: var(--accent); }
+
+      /* Catch any hard-coded coral (#f56a6a) that might slip through */
+      [style*="#f56a6a"] {
+        color: var(--accent) !important;
+        border-color: var(--accent) !important;
+        background-color: var(--accent) !important;
+      }
 
       /* Testimonials layout */
       #testimonials .testimonials{
@@ -128,7 +149,7 @@
             </div>
           </section>
 
-          <!-- Example posts (left as-is) -->
+          <!-- Example posts (kept from template) -->
           <section>
             <header class="major">
               <h2>Ipsum sed dolor</h2>
@@ -234,7 +255,7 @@
             </ul>
           </nav>
 
-          <!-- Testimonials (replaces "Ante interdum") -->
+          <!-- Testimonials -->
           <section id="testimonials">
             <header class="major">
               <h2>Testimonials</h2>
@@ -278,12 +299,15 @@
             <header class="major">
               <h2>Get in touch</h2>
             </header>
-            <p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+            <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job.</p>
             <ul class="contact">
-              <li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-              <li class="icon solid fa-phone">(000) 000-0000</li>
-              <li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-              Nashville, TN 00000-0000</li>
+              <li class="icon solid fa-envelope">
+                <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
+              </li>
+              <li class="icon solid fa-phone">
+                <a href="tel:+17024982019">702.498.2019</a>
+              </li>
+              <!-- Address removed per request -->
             </ul>
           </section>
 
