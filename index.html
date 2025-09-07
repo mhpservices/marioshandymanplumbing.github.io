@@ -3,7 +3,7 @@
   Editorial by HTML5 UP
   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html lang="en">
   <head>
     <title>Mario’s Handy Plumbing</title>
     <meta charset="utf-8" />
@@ -14,12 +14,28 @@
 
     <style>
       :root{
-        --accent: #D84838;      /* red accent */
-        --brand-blue: #1880C8;  /* blue for services/contact blocks */
+        --accent: #D84838;      /* site red */
+        --brand-blue: #1880C8;  /* blue for services/about full-bleed blocks */
       }
 
       /* ===== Prevent horizontal scrolling ===== */
       html, body { overflow-x: hidden; max-width: 100%; }
+
+      /* ===== Language toggle link (fixed, top-left) ===== */
+      #lang-toggle{
+        position: fixed;
+        top: 14px;
+        left: 62px;            /* avoid the hamburger */
+        z-index: 10000;
+        font-weight: 700;
+        font-size: .95rem;
+        letter-spacing: .2px;
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      #lang-toggle:hover{ border-bottom-color: currentColor; }
+      #lang-toggle .es{ display:none; }
 
       /* Accent line + buttons */
       .major > :first-child:after,
@@ -29,13 +45,20 @@
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
-      /* Banner (keep default layout with image on right) */
-      #banner .image.object { max-width: clamp(220px, 28vw, 420px); margin: 0; }
-      #banner .image.object img { width: 100%; height: auto; display: block; }
+      /* ===== Banner ===== */
+      #banner{
+        align-items: flex-end !important;     /* bottom-align columns */
+      }
+      #banner .content{ display:flex; flex-direction: column; }
+      #banner .actions{ margin-top: 2rem; }
+      #banner .image.object{
+        max-width: clamp(220px, 28vw, 420px);
+        align-self: flex-end;                  /* image bottom aligns with button */
+        margin: 0;
+      }
+      #banner .image.object img{ width: 100%; height: auto; display: block; }
 
-      /* =======================================
-         Full-bleed blue sections (services/contact)
-         ======================================= */
+      /* ===== Full-bleed blue sections (services/about) ===== */
       .full-bleed-blue{
         position: relative;
         color: #fff;
@@ -43,7 +66,6 @@
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
       }
-      /* Use 100vw for full bleed; horizontal overflow is safely hidden above */
       .full-bleed-blue::before{
         content: "";
         position: absolute;
@@ -60,40 +82,48 @@
       .full-bleed-blue p,
       .full-bleed-blue li { color: #fff !important; }
       .full-bleed-blue header.major > :first-child:after { background-color: #fff !important; }
+      .full-bleed-blue .features .icon,
+      .full-bleed-blue .features .icon.solid,
+      .full-bleed-blue .features .icon:before { color: #fff !important; }
+      .full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* Contact links + icons white */
-      #contact.full-bleed-blue a { color: #fff !important; border-bottom-color: rgba(255,255,255,.5) !important; }
-      #contact.full-bleed-blue a:hover { border-bottom-color: rgba(255,255,255,.85) !important; }
-      #contact.full-bleed-blue .contact .icon:before,
-      #services.full-bleed-blue .features .icon,
-      #services.full-bleed-blue .features .icon.solid,
-      #services.full-bleed-blue .features .icon:before { color: #fff !important; }
-      #services.full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
-
-      /* Testimonials header spacing + layout */
-      #testimonials header.major { margin-bottom: 1.5rem; }     /* slightly snug */
+      /* ===== Testimonials ===== */
+      #testimonials header.major { margin-bottom: 1.5rem; }      /* snug header spacing */
       #testimonials header.major > :first-child { padding-bottom: .35rem; }
-
       #testimonials .grid{ display: grid; gap: 2rem; }
       @media (min-width: 980px){ #testimonials .grid{ grid-template-columns: 1fr 1fr; } }
-
       #testimonials .card .image img{ width: 100%; display: block; border-radius: .375rem; }
       #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; }
-
-      /* Star row (even spacing, no odd gaps) */
       .stars{
         margin: .75rem 0 .5rem;
         color: var(--brand-blue);
         font-size: 1.05rem;
-        letter-spacing: 0;
         line-height: 1;
         white-space: nowrap;
       }
       .stars i{ display:inline-block; margin-right:.25rem; }
       .stars i:last-child{ margin-right:0; }
+
+      /* ===== Contact (white background, red icons/links) ===== */
+      #contact a { color: var(--accent) !important; border-bottom-color: rgba(216,72,56,.35) !important; }
+      #contact a:hover { border-bottom-color: var(--accent) !important; }
+      #contact .contact .icon:before { color: var(--accent) !important; }
+
+      /* ===== Language visibility helpers ===== */
+      #site-es, #menu-es{ display:none; }
+      .lang-es #site-en, .lang-es #menu-en{ display:none !important; }
+      .lang-es #site-es, .lang-es #menu-es{ display:block !important; }
+      .lang-es #lang-toggle .en{ display:none; }
+      .lang-es #lang-toggle .es{ display:inline; }
     </style>
   </head>
   <body class="is-preload">
+
+    <!-- Language toggle -->
+    <a id="lang-toggle" href="?lang=es">
+      <span class="en">English | ¿Hablas Español?</span>
+      <span class="es">Español | Speak English?</span>
+    </a>
 
     <!-- Wrapper -->
     <div id="wrapper">
@@ -105,126 +135,288 @@
           <!-- Header -->
           <header id="header"></header>
 
-          <!-- Banner -->
-          <section id="banner">
-            <div class="content">
-              <header>
-                <h1>Mario’s Handy Plumbing</h1>
-                <p>The job is not done until you, the customer, are satisfied.</p>
+          <!-- =========================
+               ENGLISH SITE
+               ========================= -->
+          <div id="site-en" lang="en">
+
+            <!-- Banner -->
+            <section id="banner">
+              <div class="content">
+                <header>
+                  <h1>Mario’s Handy Plumbing</h1>
+                  <p>The job is not done until you, the customer, are satisfied.</p>
+                </header>
+                <ul class="actions">
+                  <li><a href="#about" class="button big primary">Learn More</a></li>
+                </ul>
+              </div>
+              <span class="image object">
+                <img src="images/MHP LOGO (1).png" alt="Mario’s Handy Plumbing logo" />
+              </span>
+            </section>
+
+            <!-- Services (now ABOVE Testimonials) -->
+            <section id="services" class="full-bleed-blue">
+              <header class="major">
+                <h2>Plumbing Services</h2>
               </header>
-              <ul class="actions">
-                <li><a href="#about" class="button big primary">Learn More</a></li>
+              <div class="features">
+                <article>
+                  <span class="icon solid fa-fire-flame-simple"></span>
+                  <div class="content">
+                    <h3>Water Heaters</h3>
+                    <p>We install, repair, and replace tank and tankless water heaters with prompt, code-compliant workmanship you can trust.</p>
+                  </div>
+                </article>
+                <article>
+                  <span class="icon solid fa-sink"></span>
+                  <div class="content">
+                    <h3>Sinks &amp; Disposals</h3>
+                    <p>We service kitchen and bath sinks—including professional garbage disposal installation and repair—for smooth, leak-free operation.</p>
+                  </div>
+                </article>
+                <article>
+                  <span class="icon solid fa-toilet"></span>
+                  <div class="content">
+                    <h3>Toilets</h3>
+                    <p>We handle toilet installations, repairs, and replacements to resolve leaks, clogs, and running issues the right way the first time.</p>
+                  </div>
+                </article>
+                <article>
+                  <span class="icon solid fa-shower"></span>
+                  <div class="content">
+                    <h3>Showers</h3>
+                    <p>We install and repair showers, valves, and fixtures to deliver reliable water pressure and watertight performance.</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- Testimonials (now BELOW Services; left=Plumber.png, right=Plumberwcustomer.png) -->
+            <section id="testimonials">
+              <header class="major">
+                <h2>Testimonials</h2>
+              </header>
+
+              <div class="grid">
+                <!-- LEFT: Glen + Plumber.png -->
+                <article class="card">
+                  <a class="image">
+                    <img src="images/Plumber.png" alt="Plumber completing a job at a sink" />
+                  </a>
+                  <div class="stars" aria-label="5 star rating">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  </div>
+                  <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
+                </article>
+
+                <!-- RIGHT: Angela + Plumberwcustomer.png -->
+                <article class="card">
+                  <a class="image">
+                    <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
+                  </a>
+                  <div class="stars" aria-label="5 star rating">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  </div>
+                  <p class="quote">“At a time when the world in which we live in is filled with scams, over charging, and untrustworthy characters, Mario is kind, trustworthy, fair, and very dependable!!” - Angela</p>
+                </article>
+              </div>
+            </section>
+
+            <!-- About (blue full-bleed like Services) -->
+            <section id="about" class="full-bleed-blue">
+              <header class="major">
+                <h2>About</h2>
+              </header>
+              <p>
+                Mario Wolthers has been a plumber since 1995 and proudly served the Las Vegas, NV area for 20 years.
+                He created <strong>Mario’s Handy Plumbing</strong> to make sure customers are genuinely happy—every job, every time.
+                Today, our focus is simple: do excellent work, communicate clearly, and stand behind what we install so you can feel confident long after we leave.
+              </p>
+              <h3>How we do business</h3>
+              <ul class="alt">
+                <li><strong>On-time arrivals.</strong> Clear arrival windows with real-time updates—no surprises.</li>
+                <li><strong>Upfront pricing.</strong> The price you approve is the price you pay.</li>
+                <li><strong>No-pressure options.</strong> Choices to fit your needs and budget.</li>
+                <li><strong>Clean, code-compliant installs.</strong></li>
+                <li><strong>Follow-through.</strong> Personal check-in to ensure you’re 100% satisfied.</li>
               </ul>
-            </div>
-            <span class="image object">
-              <!-- corrected hero image -->
-              <img src="images/MHP LOGO (1).png" alt="Mario’s Handy Plumbing logo" />
-            </span>
-          </section>
+            </section>
 
-          <!-- Testimonials (Plumber.png LEFT, Plumberwcustomer.png RIGHT) -->
-          <section id="testimonials">
-            <header class="major">
-              <h2>Testimonials</h2>
-            </header>
+            <!-- Contact (white background; icons/links red) -->
+            <section id="contact">
+              <header class="major">
+                <h2>Get in touch</h2>
+              </header>
+              <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job.</p>
+              <ul class="contact">
+                <li class="icon solid fa-envelope">
+                  <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
+                </li>
+                <li class="icon solid fa-phone">
+                  <a href="tel:+17024982019">702.498.2019</a>
+                </li>
+              </ul>
 
-            <div class="grid">
-              <!-- LEFT: Glen + Plumber.png -->
-              <article class="card">
-                <a class="image">
-                  <img src="images/Plumber.png" alt="Plumber completing a job at a sink" />
-                </a>
-                <div class="stars" aria-label="5 star rating">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <!-- Subject + Message form (opens mail app with subject/body) -->
+              <form action="mailto:mhp.services.co@gmail.com" method="GET">
+                <div class="fields">
+                  <div class="field">
+                    <label for="subject">Subject</label>
+                    <input type="text" name="subject" id="subject" />
+                  </div>
+                  <div class="field">
+                    <label for="body">Message</label>
+                    <textarea name="body" id="body" rows="6"></textarea>
+                  </div>
                 </div>
-                <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
-              </article>
+                <ul class="actions">
+                  <li><button type="submit" class="button primary">Send</button></li>
+                </ul>
+              </form>
+            </section>
+          </div>
 
-              <!-- RIGHT: Angela + Plumberwcustomer.png -->
-              <article class="card">
-                <a class="image">
-                  <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
-                </a>
-                <div class="stars" aria-label="5 star rating">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p class="quote">“At a time when the world in which we live in is filled with scams, over charging, and untrustworthy characters, Mario is kind, trustworthy, fair, and very dependable!!” - Angela</p>
-              </article>
-            </div>
-          </section>
+          <!-- =========================
+               SPANISH SITE
+               ========================= -->
+          <div id="site-es" lang="es">
 
-          <!-- Services -->
-          <section id="services" class="full-bleed-blue">
-            <header class="major">
-              <h2>Plumbing Services</h2>
-            </header>
-            <div class="features">
-              <article>
-                <span class="icon solid fa-fire-flame-simple"></span>
-                <div class="content">
-                  <h3>Water Heaters</h3>
-                  <p>We install, repair, and replace tank with prompt, code-compliant workmanship you can trust.</p>
-                </div>
-              </article>
-              <article>
-                <span class="icon solid fa-sink"></span>
-                <div class="content">
-                  <h3>Sinks &amp; Disposals</h3>
-                  <p>We service kitchen and bath sinks—including professional garbage disposal installation and repair—for smooth, leak-free operation.</p>
-                </div>
-              </article>
-              <article>
-                <span class="icon solid fa-toilet"></span>
-                <div class="content">
-                  <h3>Toilets</h3>
-                  <p>We handle toilet installations, repairs, and replacements to resolve leaks, clogs, and running issues the right way the first time.</p>
-                </div>
-              </article>
-              <article>
-                <span class="icon solid fa-shower"></span>
-                <div class="content">
-                  <h3>Showers</h3>
-                  <p>We install and repair showers, valves, and fixtures to deliver reliable water pressure and watertight performance.</p>
-                </div>
-              </article>
-            </div>
-          </section>
+            <!-- Banner -->
+            <section id="banner">
+              <div class="content">
+                <header>
+                  <h1>Mario’s Handy Plumbing</h1>
+                  <p>El trabajo no termina hasta que usted, el cliente, esté satisfecho.</p>
+                </header>
+                <ul class="actions">
+                  <li><a href="#about" class="button big primary">Más información</a></li>
+                </ul>
+              </div>
+              <span class="image object">
+                <img src="images/MHP LOGO (1).png" alt="Logotipo de Mario’s Handy Plumbing" />
+              </span>
+            </section>
 
-          <!-- About -->
-          <section id="about">
-            <header class="major">
-              <h2>About</h2>
-            </header>
-            <p>
-              Mario Wolthers has been a plumber since 1995 and proudly served the Las Vegas, NV area for 20 years.
-              He created <strong>Mario’s Handy Plumbing</strong> to make sure customers are genuinely happy—every job, every time.
-              Today, our focus is simple: do excellent work, communicate clearly, and stand behind what we install so you can feel confident long after we leave.
-            </p>
-            <h3>How we do business</h3>
-            <ul class="alt">
-              <li><strong>On-time arrivals.</strong> Clear arrival windows with real-time updates—no surprises.</li>
-              <li><strong>Upfront pricing.</strong> The price you approve is the price you pay.</li>
-              <li><strong>No-pressure options.</strong> Choices to fit your needs and budget.</li>
-              <li><strong>Clean, code-compliant installs.</strong></li>
-              <li><strong>Follow-through.</strong> Personal check-in to ensure you’re 100% satisfied.</li>
-            </ul>
-          </section>
+            <!-- Servicios -->
+            <section id="services" class="full-bleed-blue">
+              <header class="major">
+                <h2>Servicios de Plomería</h2>
+              </header>
+              <div class="features">
+                <article>
+                  <span class="icon solid fa-fire-flame-simple"></span>
+                  <div class="content">
+                    <h3>Calentadores de agua</h3>
+                    <p>Instalamos, reparamos y reemplazamos calentadores de agua con y sin tanque con mano de obra oportuna y conforme al código.</p>
+                  </div>
+                </article>
+                <article>
+                  <span class="icon solid fa-sink"></span>
+                  <div class="content">
+                    <h3>Lavabos y trituradores</h3>
+                    <p>Servicio para lavabos de cocina y baño —incluida instalación y reparación profesional de trituradores— para un funcionamiento sin fugas.</p>
+                  </div>
+                </article>
+                <article>
+                  <span class="icon solid fa-toilet"></span>
+                  <div class="content">
+                    <h3>Inodoros</h3>
+                    <p>Instalación, reparación y reemplazo de inodoros para resolver fugas, obstrucciones y problemas de funcionamiento desde la primera vez.</p>
+                  </div>
+                </article>
+                <article>
+                  <span class="icon solid fa-shower"></span>
+                  <div class="content">
+                    <h3>Duchas</h3>
+                    <p>Instalamos y reparamos regaderas, válvulas y accesorios para ofrecer presión confiable y un desempeño hermético.</p>
+                  </div>
+                </article>
+              </div>
+            </section>
 
-          <!-- Contact -->
-          <section id="contact" class="full-bleed-blue">
-            <header class="major">
-              <h2>Get in touch</h2>
-            </header>
-            <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job.</p>
-            <ul class="contact">
-              <li class="icon solid fa-envelope">
-                <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
-              </li>
-              <li class="icon solid fa-phone">
-                <a href="tel:+17024982019">702.498.2019</a>
-              </li>
-            </ul>
-          </section>
+            <!-- Testimonios -->
+            <section id="testimonials">
+              <header class="major">
+                <h2>Testimonios</h2>
+              </header>
+
+              <div class="grid">
+                <article class="card">
+                  <a class="image">
+                    <img src="images/Plumber.png" alt="Plomero trabajando en un lavabo" />
+                  </a>
+                  <div class="stars" aria-label="Calificación 5 estrellas">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  </div>
+                  <p class="quote">“Wolthers realiza un trabajo confiable a un costo razonable” - Glen</p>
+                </article>
+
+                <article class="card">
+                  <a class="image">
+                    <img src="images/Plumberwcustomer.png" alt="Cliente satisfecho dando la mano al plomero" />
+                  </a>
+                  <div class="stars" aria-label="Calificación 5 estrellas">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  </div>
+                  <p class="quote">“En una época en la que el mundo está lleno de estafas, sobrecargos y gente poco confiable, Mario es amable, confiable, justo y muy cumplidor.” - Angela</p>
+                </article>
+              </div>
+            </section>
+
+            <!-- Acerca de (azul) -->
+            <section id="about" class="full-bleed-blue">
+              <header class="major">
+                <h2>Acerca de</h2>
+              </header>
+              <p>
+                Mario Wolthers es plomero desde 1995 y ha servido con orgullo al área de Las Vegas, NV durante 20 años.
+                Creó <strong>Mario’s Handy Plumbing</strong> para asegurar que los clientes queden realmente satisfechos—en cada trabajo, siempre.
+                Hoy nuestro enfoque es simple: hacer un trabajo excelente, comunicarnos con claridad y respaldar lo que instalamos para que usted se sienta confiado mucho después de que nos vayamos.
+              </p>
+              <h3>Cómo trabajamos</h3>
+              <ul class="alt">
+                <li><strong>Llegadas puntuales.</strong> Ventanas de llegada claras con actualizaciones en tiempo real—sin sorpresas.</li>
+                <li><strong>Precios por adelantado.</strong> El precio que aprueba es el que paga.</li>
+                <li><strong>Opciones sin presión.</strong> Opciones para sus necesidades y presupuesto.</li>
+                <li><strong>Instalaciones limpias, conforme al código.</strong></li>
+                <li><strong>Seguimiento.</strong> Revisión personal para asegurar que esté 100% satisfecho.</li>
+              </ul>
+            </section>
+
+            <!-- Contacto (blanco, rojo) -->
+            <section id="contact">
+              <header class="major">
+                <h2>Póngase en contacto</h2>
+              </header>
+              <p>Contáctenos con confianza—nuestro equipo local con licencia responde rápidamente y respalda cada trabajo.</p>
+              <ul class="contact">
+                <li class="icon solid fa-envelope">
+                  <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
+                </li>
+                <li class="icon solid fa-phone">
+                  <a href="tel:+17024982019">702.498.2019</a>
+                </li>
+              </ul>
+
+              <form action="mailto:mhp.services.co@gmail.com" method="GET">
+                <div class="fields">
+                  <div class="field">
+                    <label for="subject_es">Asunto</label>
+                    <input type="text" name="subject" id="subject_es" />
+                  </div>
+                  <div class="field">
+                    <label for="body_es">Mensaje</label>
+                    <textarea name="body" id="body_es" rows="6"></textarea>
+                  </div>
+                </div>
+                <ul class="actions">
+                  <li><button type="submit" class="button primary">Enviar</button></li>
+                </ul>
+              </form>
+            </section>
+          </div>
 
         </div>
       </div>
@@ -240,17 +432,31 @@
             </form>
           </section>
 
-          <!-- Menu -->
-          <nav id="menu">
+          <!-- Menu EN -->
+          <nav id="menu-en">
             <header class="major">
               <h2>Menu</h2>
             </header>
             <ul>
               <li><a href="#banner">Homepage</a></li>
-              <li><a href="#testimonials">Testimonials</a></li>
               <li><a href="#services">Plumbing Services</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Get in touch</a></li>
+            </ul>
+          </nav>
+
+          <!-- Menu ES -->
+          <nav id="menu-es">
+            <header class="major">
+              <h2>Menú</h2>
+            </header>
+            <ul>
+              <li><a href="#banner">Inicio</a></li>
+              <li><a href="#services">Servicios</a></li>
+              <li><a href="#testimonials">Testimonios</a></li>
+              <li><a href="#about">Acerca de</a></li>
+              <li><a href="#contact">Contacto</a></li>
             </ul>
           </nav>
 
@@ -271,5 +477,17 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
 
+    <!-- Language toggle logic -->
+    <script>
+      (function(){
+        var params = new URLSearchParams(location.search);
+        var isEs = params.get('lang') === 'es';
+        if (isEs) document.documentElement.classList.add('lang-es');
+        // Adjust toggle href/label
+        var t = document.getElementById('lang-toggle');
+        if (isEs) t.href = location.pathname + '?lang=en';
+        else t.href = location.pathname + '?lang=es';
+      })();
+    </script>
   </body>
 </html>
