@@ -14,35 +14,25 @@
 
     <style>
       :root{
-        --accent: #D84838;      /* red accent used across site */
-        --brand-blue: #1880C8;  /* blue used for services/contact blocks */
+        --accent: #D84838;      /* red accent */
+        --brand-blue: #1880C8;  /* blue for services/contact blocks */
       }
 
-      /* Global accent replacements */
+      /* Accent line + buttons use site red */
       .major > :first-child:after,
       .major > h1:after,
       .major > h2:after,
       .major > h3:after { background-color: var(--accent) !important; }
 
-      .icon, .icon:before,
-      .icon.solid, .icon.solid:before,
-      .features .icon, .features .icon:before,
-      .contact .icon:before { color: var(--accent) !important; }
-
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
-      /* Remove the red rule above the homepage title */
-      #main .inner > section:first-of-type,
-      #banner { border-top: 0 !important; }
-      #main .inner::before { display: none !important; }
-
-      /* Banner: keep image on right and scale nicely */
+      /* Keep the default Editorial banner layout (image on right) */
       #banner .image.object { max-width: clamp(220px, 28vw, 420px); margin: 0; }
       #banner .image.object img { width: 100%; height: auto; display: block; }
 
       /* =======================================
-         FULL-BLEED BLUE SECTIONS (services/contact)
+         Full-bleed blue sections (services/contact)
          ======================================= */
       .full-bleed-blue{
         position: relative;
@@ -67,17 +57,26 @@
       .full-bleed-blue p,
       .full-bleed-blue li { color: #fff !important; }
       .full-bleed-blue header.major > :first-child:after { background-color: #fff !important; }
-      .full-bleed-blue .features .icon,
-      .full-bleed-blue .features .icon.solid,
-      .full-bleed-blue .features .icon:before { color: #fff !important; }
-      .full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* Testimonials layout & look */
+      /* Make contact links + icons white */
+      #contact.full-bleed-blue a { color: #fff !important; border-bottom-color: rgba(255,255,255,.5) !important; }
+      #contact.full-bleed-blue a:hover { border-bottom-color: rgba(255,255,255,.85) !important; }
+      #contact.full-bleed-blue .contact .icon:before,
+      #services.full-bleed-blue .features .icon,
+      #services.full-bleed-blue .features .icon.solid,
+      #services.full-bleed-blue .features .icon:before { color: #fff !important; }
+      #services.full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
+
+      /* Testimonials grid + small header spacing tweak */
       #testimonials .grid{ display: grid; gap: 2rem; }
       @media (min-width: 980px){ #testimonials .grid{ grid-template-columns: 1fr 1fr; } }
       #testimonials .card .image img{ width: 100%; display: block; border-radius: .375rem; }
       #testimonials .stars{ margin: .75rem 0 .5rem; color: var(--brand-blue); font-size: 1.05rem; letter-spacing: 1px; }
-      #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; } /* black body text */
+      #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; }
+
+      /* tighter (but not too tight) space between "Testimonials" and the red line */
+      #testimonials header.major { margin-bottom: 1.5rem; }
+      #testimonials header.major > :first-child { padding-bottom: .35rem; }
     </style>
   </head>
   <body class="is-preload">
@@ -89,32 +88,34 @@
       <div id="main">
         <div class="inner">
 
-          <!-- Header (clean) -->
+          <!-- Header -->
           <header id="header"></header>
 
-          <!-- Banner (title removed, slogan kept) -->
+          <!-- Banner (restored to original with title + slogan) -->
           <section id="banner">
             <div class="content">
               <header>
-                <p>The jobs is not done until you, the customer, is satisfied.</p>
+                <h1>Mario’s Handy Plumbing</h1>
+                <p>The job is not done until you, the customer, are satisfied.</p>
               </header>
               <ul class="actions">
                 <li><a href="#about" class="button big primary">Learn More</a></li>
               </ul>
             </div>
             <span class="image object">
-              <!-- updated image file -->
-              <img src="images/MHP NAME LOGO (1).png" alt="MHP logo" />
+              <!-- You can keep this logo or replace with the original artwork if desired -->
+              <img src="images/MHP NAME LOGO (1).png" alt="Mario’s Handy Plumbing logo" />
             </span>
           </section>
 
-          <!-- Testimonials now on homepage, under slogan -->
+          <!-- Testimonials (still on homepage, images switched) -->
           <section id="testimonials">
             <header class="major">
               <h2>Testimonials</h2>
             </header>
 
             <div class="grid">
+              <!-- Glen now paired with handshake image -->
               <article class="card">
                 <a class="image">
                   <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
@@ -127,9 +128,10 @@
                 <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
               </article>
 
+              <!-- Angela now paired with working-at-sink image -->
               <article class="card">
                 <a class="image">
-                  <img src="images/Plumber.png" alt="Plumber completing a job" />
+                  <img src="images/Plumber.png" alt="Plumber completing a job at a sink" />
                 </a>
                 <div class="stars" aria-label="5 star rating">
                   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -198,7 +200,7 @@
             </ul>
           </section>
 
-          <!-- Contact moved under About, matching Services color scheme -->
+          <!-- Contact (kept under About, now white icons + links) -->
           <section id="contact" class="full-bleed-blue">
             <header class="major">
               <h2>Get in touch</h2>
@@ -217,7 +219,7 @@
         </div>
       </div>
 
-      <!-- Sidebar (menu/search only now) -->
+      <!-- Sidebar (menu/search only) -->
       <div id="sidebar">
         <div class="inner">
 
