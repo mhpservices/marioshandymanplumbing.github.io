@@ -18,16 +18,15 @@
         --brand-blue: #1880C8;  /* blue for services/contact blocks */
       }
 
-      /* Accent line + buttons use site red */
+      /* Accent line + buttons */
       .major > :first-child:after,
       .major > h1:after,
       .major > h2:after,
       .major > h3:after { background-color: var(--accent) !important; }
-
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
-      /* Keep the default Editorial banner layout (image on right) */
+      /* Banner (keep default layout with image on right) */
       #banner .image.object { max-width: clamp(220px, 28vw, 420px); margin: 0; }
       #banner .image.object img { width: 100%; height: auto; display: block; }
 
@@ -58,7 +57,7 @@
       .full-bleed-blue li { color: #fff !important; }
       .full-bleed-blue header.major > :first-child:after { background-color: #fff !important; }
 
-      /* Make contact links + icons white */
+      /* Contact links + icons white */
       #contact.full-bleed-blue a { color: #fff !important; border-bottom-color: rgba(255,255,255,.5) !important; }
       #contact.full-bleed-blue a:hover { border-bottom-color: rgba(255,255,255,.85) !important; }
       #contact.full-bleed-blue .contact .icon:before,
@@ -67,16 +66,27 @@
       #services.full-bleed-blue .features .icon:before { color: #fff !important; }
       #services.full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* Testimonials grid + small header spacing tweak */
+      /* Testimonials grid + tidy header spacing */
+      #testimonials header.major { margin-bottom: 1.5rem; }     /* slightly snug */
+      #testimonials header.major > :first-child { padding-bottom: .35rem; }
+
       #testimonials .grid{ display: grid; gap: 2rem; }
       @media (min-width: 980px){ #testimonials .grid{ grid-template-columns: 1fr 1fr; } }
+
       #testimonials .card .image img{ width: 100%; display: block; border-radius: .375rem; }
-      #testimonials .stars{ margin: .75rem 0 .5rem; color: var(--brand-blue); font-size: 1.05rem; letter-spacing: 1px; }
       #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; }
 
-      /* tighter (but not too tight) space between "Testimonials" and the red line */
-      #testimonials header.major { margin-bottom: 1.5rem; }
-      #testimonials header.major > :first-child { padding-bottom: .35rem; }
+      /* Star row (no odd spacing) */
+      .stars{
+        margin: .75rem 0 .5rem;
+        color: var(--brand-blue);
+        font-size: 1.05rem;
+        letter-spacing: 0;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .stars i{ display:inline-block; margin-right:.25rem; }
+      .stars i:last-child{ margin-right:0; }
     </style>
   </head>
   <body class="is-preload">
@@ -91,7 +101,7 @@
           <!-- Header -->
           <header id="header"></header>
 
-          <!-- Banner (restored to original with title + slogan) -->
+          <!-- Banner (title + slogan; image switched to MHP LOGO (1).png) -->
           <section id="banner">
             <div class="content">
               <header>
@@ -103,40 +113,35 @@
               </ul>
             </div>
             <span class="image object">
-              <!-- You can keep this logo or replace with the original artwork if desired -->
-              <img src="images/MHP NAME LOGO (1).png" alt="Mario’s Handy Plumbing logo" />
+              <img src="images/MHP LOGO (1).png" alt="Mario’s Handy Plumbing logo" />
             </span>
           </section>
 
-          <!-- Testimonials (still on homepage, images switched) -->
+          <!-- Testimonials (images switched: Plumber.png left, Plumberwcustomer.png right) -->
           <section id="testimonials">
             <header class="major">
               <h2>Testimonials</h2>
             </header>
 
             <div class="grid">
-              <!-- Glen now paired with handshake image -->
-              <article class="card">
-                <a class="image">
-                  <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
-                </a>
-                <div class="stars" aria-label="5 star rating">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
-              </article>
-
-              <!-- Angela now paired with working-at-sink image -->
+              <!-- LEFT: Glen + Plumber.png -->
               <article class="card">
                 <a class="image">
                   <img src="images/Plumber.png" alt="Plumber completing a job at a sink" />
                 </a>
                 <div class="stars" aria-label="5 star rating">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
+              </article>
+
+              <!-- RIGHT: Angela + Plumberwcustomer.png -->
+              <article class="card">
+                <a class="image">
+                  <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
+                </a>
+                <div class="stars" aria-label="5 star rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
                 <p class="quote">“At a time when the world in which we live in is filled with scams, over charging, and untrustworthy characters, Mario is kind, trustworthy, fair, and very dependable!!” - Angela</p>
               </article>
@@ -200,7 +205,7 @@
             </ul>
           </section>
 
-          <!-- Contact (kept under About, now white icons + links) -->
+          <!-- Contact -->
           <section id="contact" class="full-bleed-blue">
             <header class="major">
               <h2>Get in touch</h2>
@@ -219,7 +224,7 @@
         </div>
       </div>
 
-      <!-- Sidebar (menu/search only) -->
+      <!-- Sidebar -->
       <div id="sidebar">
         <div class="inner">
 
@@ -230,7 +235,7 @@
             </form>
           </section>
 
-          <!-- Menu (internal links) -->
+          <!-- Menu -->
           <nav id="menu">
             <header class="major">
               <h2>Menu</h2>
