@@ -13,7 +13,7 @@
     <!-- Font Awesome 6 for plumbing icons + stars -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- Brand accent + testimonial styles (load AFTER main.css to override) -->
+    <!-- Brand accent + layout overrides (load AFTER main.css) -->
     <style>
       :root{
         --accent: #D84838;      /* strong red */
@@ -40,6 +40,17 @@
         color: var(--accent) !important;
         border-color: var(--accent) !important;
         background-color: var(--accent) !important;
+      }
+
+      /* Make banner image proportionally smaller to the heading */
+      #banner .image.object { 
+        max-width: clamp(220px, 28vw, 420px);  /* responsive cap */
+        margin: 0; 
+      }
+      #banner .image.object img { 
+        width: 100%; 
+        height: auto; 
+        display: block; 
       }
 
       /* Testimonials layout */
@@ -83,7 +94,6 @@
                 <h1>Mario’s Handy Plumbing</h1>
                 <p>The job is not done until you, the customer, are satisfied.</p>
               </header>
-              <!-- Removed the long lorem paragraph per request -->
               <ul class="actions">
                 <li><a href="#about" class="button big primary">Learn More</a></li>
               </ul>
