@@ -15,7 +15,7 @@
     <style>
       :root{
         --accent: #D84838;      /* strong red used across site */
-        --brand-blue: #1880C8;  /* blue used for stars */
+        --brand-blue: #1880C8;  /* blue used for stars / services */
       }
 
       /* Global accent replacements */
@@ -32,30 +32,41 @@
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
-      /* === Remove the red rule above the homepage title ===
-         Editorial adds a top border to sections; nuke it on the first section. */
+      /* Remove the red rule above the homepage title */
       #main .inner > section:first-of-type,
       #banner { border-top: 0 !important; }
-      /* Some builds render a pseudo divider on the inner container too. */
       #main .inner::before { display: none !important; }
 
-      /* Banner image proportion */
+      /* Banner logo proportion */
       #banner .image.object { max-width: clamp(220px, 28vw, 420px); margin: 0; }
       #banner .image.object img { width: 100%; height: auto; display: block; }
 
-      /* === Services section: blue background, within content column === */
-      #services {
-        background: var(--brand-blue);
+      /* ================================
+         SERVICES = full-bleed background
+         ================================ */
+      #services{
+        position: relative;           /* create a stacking context for ::before */
         color: #fff;
-        border-top: 0 !important;     /* no red divider at the top of this section */
+        border-top: 0 !important;     /* no divider line at the top */
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
-        border-radius: .5rem;
       }
+      /* Full-width blue layer behind the normal, centered content */
+      #services::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;                 /* span the viewport */
+        height: 100%;
+        background: var(--brand-blue);
+        z-index: -1;                  /* sit behind the section’s content */
+      }
+
+      /* White text, icons, and underline inside the services block */
       #services h2, #services h3, #services p, #services li { color: #fff !important; }
-      /* White underline under the section title */
       #services header.major > :first-child:after { background-color: #fff !important; }
-      /* White icons & diamond borders */
       #services .features .icon,
       #services .features .icon.solid,
       #services .features .icon:before { color: #fff !important; }
@@ -68,7 +79,7 @@
       #testimonials .stars{ margin: .75rem 0 .5rem; color: var(--brand-blue); font-size: 1.05rem; letter-spacing: 1px; }
       #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; } /* black body text */
 
-      /* IMPORTANT: do NOT style #sidebar .toggle (hamburger) so it stays default */
+      /* No custom styling on the hamburger so it stays default */
     </style>
   </head>
   <body class="is-preload">
