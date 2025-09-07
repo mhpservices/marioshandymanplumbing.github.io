@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <!--
   Editorial by HTML5 UP
-  html5up.net | @ajlkn
   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
@@ -13,11 +12,10 @@
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- Brand + layout overrides -->
     <style>
       :root{
-        --accent: #D84838;      /* strong red */
-        --brand-blue: #1880C8;  /* star/services blue */
+        --accent: #D84838;      /* strong red used across site */
+        --brand-blue: #1880C8;  /* blue used for stars */
       }
 
       /* Global accent replacements */
@@ -34,65 +32,43 @@
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
-      /* ======= HEADER/BANNER FIXES ======= */
-
-      /* Remove the divider line that appears above the homepage title */
+      /* === Remove the red rule above the homepage title ===
+         Editorial adds a top border to sections; nuke it on the first section. */
+      #main .inner > section:first-of-type,
       #banner { border-top: 0 !important; }
+      /* Some builds render a pseudo divider on the inner container too. */
+      #main .inner::before { display: none !important; }
 
-      /* Some themes inject a top border on first section via sibling selector; nuke it hard */
-      #main .inner > section#banner { border-top: 0 !important; }
-
-      /* Banner logo size */
-      #banner .image.object { 
-        max-width: clamp(220px, 28vw, 420px);
-        margin: 0;
-      }
+      /* Banner image proportion */
+      #banner .image.object { max-width: clamp(220px, 28vw, 420px); margin: 0; }
       #banner .image.object img { width: 100%; height: auto; display: block; }
 
-      /* ======= HAMBURGER TOGGLE (SIZE + COLORS) ======= */
-      /* Make the toggle compact, red background, white bars */
-      #sidebar .toggle{
-        width: 44px !important;
-        height: 44px !important;
-        line-height: 44px !important;
-        font-size: 18px !important;      /* controls bar icon size */
-        background: var(--accent) !important;
-        border-radius: 10px !important;
-        padding: 0 !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,.18) !important;
-      }
-      #sidebar .toggle:before{
-        color: #fff !important;          /* hamburger bars */
-      }
-
-      /* ======= SERVICES SECTION — FULL-BLEED BLUE, WHITE CONTENT ======= */
-      #services{
-        /* Full-bleed trick: pull the section out to viewport edges */
+      /* === Services section: blue background, within content column === */
+      #services {
         background: var(--brand-blue);
         color: #fff;
-        margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
-        padding-left: calc(50vw - 50% + 2rem);
-        padding-right: calc(50vw - 50% + 2rem);
+        border-top: 0 !important;     /* no red divider at the top of this section */
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
-        border-top: 0 !important;        /* no default divider inside this block */
+        border-radius: .5rem;
       }
       #services h2, #services h3, #services p, #services li { color: #fff !important; }
-      /* Make the underline under the section title WHITE (not red) */
-      #services header.major h2:after { background-color: #fff !important; }
-      /* Icons + diamond borders to white */
+      /* White underline under the section title */
+      #services header.major > :first-child:after { background-color: #fff !important; }
+      /* White icons & diamond borders */
       #services .features .icon,
       #services .features .icon.solid,
       #services .features .icon:before { color: #fff !important; }
       #services .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* ======= TESTIMONIALS ======= */
+      /* Testimonials layout & text color */
       #testimonials .testimonials{ display: grid; gap: 2rem; }
       @media (min-width: 980px){ #testimonials .testimonials{ grid-template-columns: 1fr 1fr; } }
       #testimonials .testimonial .image img{ width: 100%; display: block; border-radius: .375rem; }
       #testimonials .stars{ margin: .75rem 0 .5rem; color: var(--brand-blue); font-size: 1.05rem; letter-spacing: 1px; }
-      #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; } /* black text */
+      #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; } /* black body text */
+
+      /* IMPORTANT: do NOT style #sidebar .toggle (hamburger) so it stays default */
     </style>
   </head>
   <body class="is-preload">
@@ -166,8 +142,8 @@
               <h2>About</h2>
             </header>
             <p>
-              Mario Wolthers has been a plumber since 1995 and proudly served the Las Vegas, NV area for 20 years.  
-              He created <strong>Mario’s Handy Plumbing</strong> to make sure customers are genuinely happy—every job, every time.  
+              Mario Wolthers has been a plumber since 1995 and proudly served the Las Vegas, NV area for 20 years.
+              He created <strong>Mario’s Handy Plumbing</strong> to make sure customers are genuinely happy—every job, every time.
               Today, our focus is simple: do excellent work, communicate clearly, and stand behind what we install so you can feel confident long after we leave.
             </p>
             <h3>How we do business</h3>
@@ -206,7 +182,7 @@
             </ul>
           </nav>
 
-          <!-- Testimonials (images swapped as requested earlier) -->
+          <!-- Testimonials -->
           <section id="testimonials">
             <header class="major">
               <h2>Testimonials</h2>
