@@ -17,10 +17,10 @@
     <style>
       :root{
         --accent: #D84838;      /* strong red */
-        --brand-blue: #1880C8;  /* star blue */
+        --brand-blue: #1880C8;  /* star/services blue */
       }
 
-      /* General accent replacements */
+      /* Global accent replacements */
       .major > :first-child:after,
       .major > h1:after,
       .major > h2:after,
@@ -34,60 +34,64 @@
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
-      /* Remove the red line at the very top of the homepage (banner) */
-      .inner > section:first-of-type { border-top: none !important; }
-      #banner { padding-top: .75rem !important; padding-bottom: .75rem !important; }
+      /* ======= HEADER/BANNER FIXES ======= */
 
-      /* Hamburger (mobile) – filled red with white bars */
-      #sidebar .toggle{
-        background: var(--accent) !important;
-        border-radius: 8px;
-        padding: .65rem .7rem !important;
-        box-shadow: 0 2px 6px rgba(0,0,0,.12);
-      }
-      #sidebar .toggle:before{
-        color: #fff !important;            /* make the bars white */
-      }
+      /* Remove the divider line that appears above the homepage title */
+      #banner { border-top: 0 !important; }
+
+      /* Some themes inject a top border on first section via sibling selector; nuke it hard */
+      #main .inner > section#banner { border-top: 0 !important; }
 
       /* Banner logo size */
       #banner .image.object { 
         max-width: clamp(220px, 28vw, 420px);
         margin: 0;
       }
-      #banner .image.object img { 
-        width: 100%;
-        height: auto;
-        display: block;
+      #banner .image.object img { width: 100%; height: auto; display: block; }
+
+      /* ======= HAMBURGER TOGGLE (SIZE + COLORS) ======= */
+      /* Make the toggle compact, red background, white bars */
+      #sidebar .toggle{
+        width: 44px !important;
+        height: 44px !important;
+        line-height: 44px !important;
+        font-size: 18px !important;      /* controls bar icon size */
+        background: var(--accent) !important;
+        border-radius: 10px !important;
+        padding: 0 !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,.18) !important;
+      }
+      #sidebar .toggle:before{
+        color: #fff !important;          /* hamburger bars */
       }
 
-      /* SERVICES SECTION — blue background, white content */
+      /* ======= SERVICES SECTION — FULL-BLEED BLUE, WHITE CONTENT ======= */
       #services{
+        /* Full-bleed trick: pull the section out to viewport edges */
         background: var(--brand-blue);
         color: #fff;
-        border-top: none;                 /* remove default section rule inside this block */
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        padding-left: calc(50vw - 50% + 2rem);
+        padding-right: calc(50vw - 50% + 2rem);
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
+        border-top: 0 !important;        /* no default divider inside this block */
       }
       #services h2, #services h3, #services p, #services li { color: #fff !important; }
-      #services .major > h2:after{ background-color: #fff !important; }
-      /* Icon + diamond line */
+      /* Make the underline under the section title WHITE (not red) */
+      #services header.major h2:after { background-color: #fff !important; }
+      /* Icons + diamond borders to white */
       #services .features .icon,
       #services .features .icon.solid,
       #services .features .icon:before { color: #fff !important; }
-      #services .features .icon:before { border-color: rgba(255,255,255,.35) !important; }
+      #services .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* Testimonials */
-      #testimonials .testimonials{
-        display: grid;
-        gap: 2rem;
-      }
+      /* ======= TESTIMONIALS ======= */
+      #testimonials .testimonials{ display: grid; gap: 2rem; }
       @media (min-width: 980px){ #testimonials .testimonials{ grid-template-columns: 1fr 1fr; } }
-      #testimonials .testimonial .image img{
-        width: 100%; display: block; border-radius: .375rem;
-      }
-      #testimonials .stars{
-        margin: .75rem 0 .5rem; color: var(--brand-blue); font-size: 1.05rem; letter-spacing: 1px;
-      }
+      #testimonials .testimonial .image img{ width: 100%; display: block; border-radius: .375rem; }
+      #testimonials .stars{ margin: .75rem 0 .5rem; color: var(--brand-blue); font-size: 1.05rem; letter-spacing: 1px; }
       #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; } /* black text */
     </style>
   </head>
@@ -202,7 +206,7 @@
             </ul>
           </nav>
 
-          <!-- Testimonials (images swapped) -->
+          <!-- Testimonials (images swapped as requested earlier) -->
           <section id="testimonials">
             <header class="major">
               <h2>Testimonials</h2>
