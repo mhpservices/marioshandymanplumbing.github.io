@@ -53,7 +53,11 @@
         display: block;
       }
 
-      /* Testimonials layout */
+      /* TIGHTEN the gap between the red top rule and the gray divider on homepage */
+      #banner { padding-top: .75rem !important; padding-bottom: .75rem !important; }
+      #services { margin-top: 1rem !important; padding-top: 1rem !important; }
+
+      /* Testimonials layout and text color */
       #testimonials .testimonials{
         display: grid;
         gap: 2rem;
@@ -72,7 +76,7 @@
         font-size: 1.05rem;
         letter-spacing: 1px;
       }
-      #testimonials .quote{ margin: 0; line-height: 1.6; }
+      #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; } /* black text */
     </style>
   </head>
   <body class="is-preload">
@@ -197,10 +201,10 @@
             </header>
 
             <div class="testimonials">
-              <!-- Testimonial 1 -->
+              <!-- Testimonial 1 (SWAPPED IMAGE) -->
               <article class="testimonial">
                 <a class="image">
-                  <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
+                  <img src="images/Plumber.png" alt="Plumber completing a job" />
                 </a>
                 <div class="stars" aria-label="5 star rating">
                   <i class="fa-solid fa-star"></i>
@@ -209,13 +213,13 @@
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                 </div>
-                <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen.</p>
+                <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
               </article>
 
-              <!-- Testimonial 2 -->
+              <!-- Testimonial 2 (SWAPPED IMAGE) -->
               <article class="testimonial">
                 <a class="image">
-                  <img src="images/Plumber.png" alt="Plumber completing a job" />
+                  <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
                 </a>
                 <div class="stars" aria-label="5 star rating">
                   <i class="fa-solid fa-star"></i>
