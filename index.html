@@ -14,8 +14,8 @@
 
     <style>
       :root{
-        --accent: #D84838;      /* strong red used across site */
-        --brand-blue: #1880C8;  /* blue used for stars / services */
+        --accent: #D84838;      /* red accent used across site */
+        --brand-blue: #1880C8;  /* blue used for services/contact blocks */
       }
 
       /* Global accent replacements */
@@ -37,49 +37,47 @@
       #banner { border-top: 0 !important; }
       #main .inner::before { display: none !important; }
 
-      /* Banner logo proportion */
+      /* Banner: keep image on right and scale nicely */
       #banner .image.object { max-width: clamp(220px, 28vw, 420px); margin: 0; }
       #banner .image.object img { width: 100%; height: auto; display: block; }
 
-      /* ================================
-         SERVICES = full-bleed background
-         ================================ */
-      #services{
-        position: relative;           /* create a stacking context for ::before */
+      /* =======================================
+         FULL-BLEED BLUE SECTIONS (services/contact)
+         ======================================= */
+      .full-bleed-blue{
+        position: relative;
         color: #fff;
-        border-top: 0 !important;     /* no divider line at the top */
+        border-top: 0 !important;
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
       }
-      /* Full-width blue layer behind the normal, centered content */
-      #services::before{
+      .full-bleed-blue::before{
         content: "";
         position: absolute;
         top: 0;
         left: 50%;
         transform: translateX(-50%);
-        width: 100vw;                 /* span the viewport */
+        width: 100vw;
         height: 100%;
         background: var(--brand-blue);
-        z-index: -1;                  /* sit behind the section’s content */
+        z-index: -1;
       }
+      .full-bleed-blue h2,
+      .full-bleed-blue h3,
+      .full-bleed-blue p,
+      .full-bleed-blue li { color: #fff !important; }
+      .full-bleed-blue header.major > :first-child:after { background-color: #fff !important; }
+      .full-bleed-blue .features .icon,
+      .full-bleed-blue .features .icon.solid,
+      .full-bleed-blue .features .icon:before { color: #fff !important; }
+      .full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* White text, icons, and underline inside the services block */
-      #services h2, #services h3, #services p, #services li { color: #fff !important; }
-      #services header.major > :first-child:after { background-color: #fff !important; }
-      #services .features .icon,
-      #services .features .icon.solid,
-      #services .features .icon:before { color: #fff !important; }
-      #services .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
-
-      /* Testimonials layout & text color */
-      #testimonials .testimonials{ display: grid; gap: 2rem; }
-      @media (min-width: 980px){ #testimonials .testimonials{ grid-template-columns: 1fr 1fr; } }
-      #testimonials .testimonial .image img{ width: 100%; display: block; border-radius: .375rem; }
+      /* Testimonials layout & look */
+      #testimonials .grid{ display: grid; gap: 2rem; }
+      @media (min-width: 980px){ #testimonials .grid{ grid-template-columns: 1fr 1fr; } }
+      #testimonials .card .image img{ width: 100%; display: block; border-radius: .375rem; }
       #testimonials .stars{ margin: .75rem 0 .5rem; color: var(--brand-blue); font-size: 1.05rem; letter-spacing: 1px; }
       #testimonials .quote{ margin: 0; line-height: 1.6; color:#000; } /* black body text */
-
-      /* No custom styling on the hamburger so it stays default */
     </style>
   </head>
   <body class="is-preload">
@@ -94,24 +92,57 @@
           <!-- Header (clean) -->
           <header id="header"></header>
 
-          <!-- Banner -->
+          <!-- Banner (title removed, slogan kept) -->
           <section id="banner">
             <div class="content">
               <header>
-                <h1>Mario’s Handy Plumbing</h1>
-                <p>The job is not done until you, the customer, are satisfied.</p>
+                <p>The jobs is not done until you, the customer, is satisfied.</p>
               </header>
               <ul class="actions">
                 <li><a href="#about" class="button big primary">Learn More</a></li>
               </ul>
             </div>
             <span class="image object">
-              <img src="images/MHP LOGO (1).png" alt="Mario’s Handy Plumbing logo" />
+              <!-- updated image file -->
+              <img src="images/MHP NAME LOGO (1).png" alt="MHP logo" />
             </span>
           </section>
 
+          <!-- Testimonials now on homepage, under slogan -->
+          <section id="testimonials">
+            <header class="major">
+              <h2>Testimonials</h2>
+            </header>
+
+            <div class="grid">
+              <article class="card">
+                <a class="image">
+                  <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
+                </a>
+                <div class="stars" aria-label="5 star rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
+              </article>
+
+              <article class="card">
+                <a class="image">
+                  <img src="images/Plumber.png" alt="Plumber completing a job" />
+                </a>
+                <div class="stars" aria-label="5 star rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <p class="quote">“At a time when the world in which we live in is filled with scams, over charging, and untrustworthy characters, Mario is kind, trustworthy, fair, and very dependable!!” - Angela</p>
+              </article>
+            </div>
+          </section>
+
           <!-- Services -->
-          <section id="services">
+          <section id="services" class="full-bleed-blue">
             <header class="major">
               <h2>Plumbing Services</h2>
             </header>
@@ -167,10 +198,26 @@
             </ul>
           </section>
 
+          <!-- Contact moved under About, matching Services color scheme -->
+          <section id="contact" class="full-bleed-blue">
+            <header class="major">
+              <h2>Get in touch</h2>
+            </header>
+            <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job.</p>
+            <ul class="contact">
+              <li class="icon solid fa-envelope">
+                <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
+              </li>
+              <li class="icon solid fa-phone">
+                <a href="tel:+17024982019">702.498.2019</a>
+              </li>
+            </ul>
+          </section>
+
         </div>
       </div>
 
-      <!-- Sidebar -->
+      <!-- Sidebar (menu/search only now) -->
       <div id="sidebar">
         <div class="inner">
 
@@ -188,59 +235,12 @@
             </header>
             <ul>
               <li><a href="#banner">Homepage</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
               <li><a href="#services">Plumbing Services</a></li>
               <li><a href="#about">About</a></li>
+              <li><a href="#contact">Get in touch</a></li>
             </ul>
           </nav>
-
-          <!-- Testimonials -->
-          <section id="testimonials">
-            <header class="major">
-              <h2>Testimonials</h2>
-            </header>
-
-            <div class="testimonials">
-              <article class="testimonial">
-                <a class="image">
-                  <img src="images/Plumber.png" alt="Plumber completing a job" />
-                </a>
-                <div class="stars" aria-label="5 star rating">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
-              </article>
-
-              <article class="testimonial">
-                <a class="image">
-                  <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
-                </a>
-                <div class="stars" aria-label="5 star rating">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <p class="quote">“At a time when the world in which we live in is filled with scams, over charging, and untrustworthy characters, Mario is kind, trustworthy, fair, and very dependable!!” - Angela</p>
-              </article>
-            </div>
-          </section>
-
-          <!-- Contact -->
-          <section>
-            <header class="major">
-              <h2>Get in touch</h2>
-            </header>
-            <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job.</p>
-            <ul class="contact">
-              <li class="icon solid fa-envelope">
-                <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
-              </li>
-              <li class="icon solid fa-phone">
-                <a href="tel:+17024982019">702.498.2019</a>
-              </li>
-            </ul>
-          </section>
 
           <!-- Footer -->
           <footer id="footer">
