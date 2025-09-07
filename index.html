@@ -21,7 +21,7 @@
       /* ===== Prevent horizontal scrolling ===== */
       html, body { overflow-x: hidden; max-width: 100%; }
 
-      /* ===== Language links (top-right) ===== */
+      /* ===== Language links (fixed, top-right; separate links) ===== */
       #lang-toggle{
         position: fixed;
         top: 14px;
@@ -92,16 +92,18 @@
       .full-bleed-blue .features .icon:before { color: #fff !important; }
       .full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* --- About: force white text and bold the items that were dark --- */
+      /* --- About: force white text and bold the label bits --- */
       #about.full-bleed-blue strong { color:#fff !important; font-weight: 800; }
-      #about.full-bleed-blue .alt > li > strong { font-weight: 900; } /* the bullets like "On-time arrivals." */
+      #about.full-bleed-blue .alt > li > strong { font-weight: 900; }
 
-      /* ===== More breathing room between WHITE sections ===== */
-      /* Any section that is not full-bleed gets extra space below */
-      #main .inner section:not(.full-bleed-blue){ margin-bottom: 5rem; }
+      /* ===== More breathing room ABOVE & BELOW every white section ===== */
+      /* (Testimonials & Contact are white sections) */
+      #main .inner > section:not(.full-bleed-blue){
+        margin: 6rem 0 !important;   /* bigger top + bottom gaps */
+      }
 
       /* ===== Testimonials ===== */
-      #testimonials header.major { margin-bottom: 1.5rem; }      /* snug header spacing */
+      #testimonials header.major { margin-bottom: 1.5rem; }
       #testimonials header.major > :first-child { padding-bottom: .35rem; }
       #testimonials .grid{ display: grid; gap: 2rem; }
       @media (min-width: 980px){ #testimonials .grid{ grid-template-columns: 1fr 1fr; } }
@@ -120,8 +122,8 @@
       /* ===== Contact (white background; icons/links red) ===== */
       #contact a { color: var(--accent) !important; border-bottom-color: rgba(216,72,56,.35) !important; }
       #contact a:hover { border-bottom-color: var(--accent) !important; }
-      #contact .contact .icon:before { color: var(--accent) !important; }
-      /* email | phone inline */
+
+      /* Make the inline contact icons the same red as the button */
       .contact-line{
         display: flex;
         flex-wrap: wrap;
@@ -130,12 +132,14 @@
         font-size: 1.05rem;
       }
       .contact-line .sep{ color:#ccc; margin: 0 .25rem; }
+      .contact-line .icon,
+      .contact-line .icon:before{ color: var(--accent) !important; } /* <-- red icons */
       .contact-line .icon{ margin-right: .25rem; }
     </style>
   </head>
   <body class="is-preload">
 
-    <!-- Language links (RIGHT corner, separate links) -->
+    <!-- Language links (RIGHT corner, separate links & fixed) -->
     <div id="lang-toggle">
       <a id="lnk-en" href="?lang=en">English</a>
       <span class="sep">|</span>
@@ -241,7 +245,7 @@
               </div>
             </section>
 
-            <!-- About (blue, all white text; dark labels bold) -->
+            <!-- About (blue, all white text; label bits bold) -->
             <section id="about" class="full-bleed-blue">
               <header class="major">
                 <h2>About</h2>
@@ -261,7 +265,7 @@
               </ul>
             </section>
 
-            <!-- Contact (white, email + phone inline, expanded message) -->
+            <!-- Contact (white, red icons/links; more copy; email | phone inline) -->
             <section id="contact">
               <header class="major">
                 <h2>Get in touch</h2>
@@ -403,7 +407,7 @@
               </ul>
             </section>
 
-            <!-- Contacto (blanco, rojo) -->
+            <!-- Contacto (blanco, rojo; email | phone inline) -->
             <section id="contact">
               <header class="major">
                 <h2>Póngase en contacto</h2>
@@ -439,7 +443,7 @@
         </div>
       </div>
 
-      <!-- Sidebar (original simple menu restored) -->
+      <!-- Sidebar (original simple menu) -->
       <div id="sidebar">
         <div class="inner">
 
@@ -489,7 +493,7 @@
         document.getElementById('site-en').style.display = isEs ? 'none' : 'block';
         document.getElementById('site-es').style.display = isEs ? 'block' : 'none';
 
-        // Keep links pointing to opposite languages on the same path
+        // Make links switch languages but keep same path
         var path = location.pathname;
         document.getElementById('lnk-en').href = path + '?lang=en';
         document.getElementById('lnk-es').href = path + '?lang=es';
