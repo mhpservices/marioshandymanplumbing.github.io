@@ -21,21 +21,27 @@
       /* ===== Prevent horizontal scrolling ===== */
       html, body { overflow-x: hidden; max-width: 100%; }
 
-      /* ===== Language toggle link (fixed, top-left) ===== */
+      /* ===== Language links (top-right) ===== */
       #lang-toggle{
         position: fixed;
         top: 14px;
-        left: 62px;            /* avoid the hamburger */
+        right: 24px;
         z-index: 10000;
         font-weight: 700;
         font-size: .95rem;
         letter-spacing: .2px;
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+      }
+      #lang-toggle a{
         color: var(--accent);
         text-decoration: none;
         border-bottom: 1px solid transparent;
+        white-space: nowrap;
       }
-      #lang-toggle:hover{ border-bottom-color: currentColor; }
-      #lang-toggle .es{ display:none; }
+      #lang-toggle a:hover{ border-bottom-color: currentColor; }
+      #lang-toggle .sep{ color: #999; opacity: .9; }
 
       /* Accent line + buttons */
       .major > :first-child:after,
@@ -46,14 +52,12 @@
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
       /* ===== Banner ===== */
-      #banner{
-        align-items: flex-end !important;     /* bottom-align columns */
-      }
+      #banner{ display: flex !important; align-items: flex-end !important; }
       #banner .content{ display:flex; flex-direction: column; }
       #banner .actions{ margin-top: 2rem; }
       #banner .image.object{
         max-width: clamp(220px, 28vw, 420px);
-        align-self: flex-end;                  /* image bottom aligns with button */
+        align-self: flex-end; /* bottom align with button */
         margin: 0;
       }
       #banner .image.object img{ width: 100%; height: auto; display: block; }
@@ -63,8 +67,8 @@
         position: relative;
         color: #fff;
         border-top: 0 !important;
-        padding-top: 2.5rem;
-        padding-bottom: 2.5rem;
+        padding-top: 2.75rem;
+        padding-bottom: 2.75rem;
       }
       .full-bleed-blue::before{
         content: "";
@@ -80,12 +84,21 @@
       .full-bleed-blue h2,
       .full-bleed-blue h3,
       .full-bleed-blue p,
-      .full-bleed-blue li { color: #fff !important; }
+      .full-bleed-blue li,
+      .full-bleed-blue a { color: #fff !important; }
       .full-bleed-blue header.major > :first-child:after { background-color: #fff !important; }
       .full-bleed-blue .features .icon,
       .full-bleed-blue .features .icon.solid,
       .full-bleed-blue .features .icon:before { color: #fff !important; }
       .full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
+
+      /* --- About: force white text and bold the items that were dark --- */
+      #about.full-bleed-blue strong { color:#fff !important; font-weight: 800; }
+      #about.full-bleed-blue .alt > li > strong { font-weight: 900; } /* the bullets like "On-time arrivals." */
+
+      /* ===== More breathing room between WHITE sections ===== */
+      /* Any section that is not full-bleed gets extra space below */
+      #main .inner section:not(.full-bleed-blue){ margin-bottom: 5rem; }
 
       /* ===== Testimonials ===== */
       #testimonials header.major { margin-bottom: 1.5rem; }      /* snug header spacing */
@@ -104,26 +117,30 @@
       .stars i{ display:inline-block; margin-right:.25rem; }
       .stars i:last-child{ margin-right:0; }
 
-      /* ===== Contact (white background, red icons/links) ===== */
+      /* ===== Contact (white background; icons/links red) ===== */
       #contact a { color: var(--accent) !important; border-bottom-color: rgba(216,72,56,.35) !important; }
       #contact a:hover { border-bottom-color: var(--accent) !important; }
       #contact .contact .icon:before { color: var(--accent) !important; }
-
-      /* ===== Language visibility helpers ===== */
-      #site-es, #menu-es{ display:none; }
-      .lang-es #site-en, .lang-es #menu-en{ display:none !important; }
-      .lang-es #site-es, .lang-es #menu-es{ display:block !important; }
-      .lang-es #lang-toggle .en{ display:none; }
-      .lang-es #lang-toggle .es{ display:inline; }
+      /* email | phone inline */
+      .contact-line{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem .75rem;
+        font-size: 1.05rem;
+      }
+      .contact-line .sep{ color:#ccc; margin: 0 .25rem; }
+      .contact-line .icon{ margin-right: .25rem; }
     </style>
   </head>
   <body class="is-preload">
 
-    <!-- Language toggle -->
-    <a id="lang-toggle" href="?lang=es">
-      <span class="en">English | ¿Hablas Español?</span>
-      <span class="es">Español | Speak English?</span>
-    </a>
+    <!-- Language links (RIGHT corner, separate links) -->
+    <div id="lang-toggle">
+      <a id="lnk-en" href="?lang=en">English</a>
+      <span class="sep">|</span>
+      <a id="lnk-es" href="?lang=es">¿Hablas Español?</a>
+    </div>
 
     <!-- Wrapper -->
     <div id="wrapper">
@@ -156,7 +173,7 @@
               </span>
             </section>
 
-            <!-- Services (now ABOVE Testimonials) -->
+            <!-- Services (ABOVE Testimonials) -->
             <section id="services" class="full-bleed-blue">
               <header class="major">
                 <h2>Plumbing Services</h2>
@@ -193,7 +210,7 @@
               </div>
             </section>
 
-            <!-- Testimonials (now BELOW Services; left=Plumber.png, right=Plumberwcustomer.png) -->
+            <!-- Testimonials -->
             <section id="testimonials">
               <header class="major">
                 <h2>Testimonials</h2>
@@ -208,7 +225,7 @@
                   <div class="stars" aria-label="5 star rating">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                   </div>
-                  <p class="quote">“Wolthers does reliable work at a reasonable cost” - Glen</p>
+                  <p class="quote">“Wolthers does reliable work at a reasonable cost” - <strong>Glen</strong></p>
                 </article>
 
                 <!-- RIGHT: Angela + Plumberwcustomer.png -->
@@ -219,12 +236,12 @@
                   <div class="stars" aria-label="5 star rating">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                   </div>
-                  <p class="quote">“At a time when the world in which we live in is filled with scams, over charging, and untrustworthy characters, Mario is kind, trustworthy, fair, and very dependable!!” - Angela</p>
+                  <p class="quote">“At a time when the world in which we live in is filled with scams, over charging, and untrustworthy characters, Mario is kind, trustworthy, fair, and very dependable!!” - <strong>Angela</strong></p>
                 </article>
               </div>
             </section>
 
-            <!-- About (blue full-bleed like Services) -->
+            <!-- About (blue, all white text; dark labels bold) -->
             <section id="about" class="full-bleed-blue">
               <header class="major">
                 <h2>About</h2>
@@ -244,22 +261,23 @@
               </ul>
             </section>
 
-            <!-- Contact (white background; icons/links red) -->
+            <!-- Contact (white, email + phone inline, expanded message) -->
             <section id="contact">
               <header class="major">
                 <h2>Get in touch</h2>
               </header>
-              <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job.</p>
-              <ul class="contact">
-                <li class="icon solid fa-envelope">
-                  <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
-                </li>
-                <li class="icon solid fa-phone">
-                  <a href="tel:+17024982019">702.498.2019</a>
-                </li>
-              </ul>
+              <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job. <strong>Please leave your name, phone number and/or email address so we can reach back to you.</strong></p>
 
-              <!-- Subject + Message form (opens mail app with subject/body) -->
+              <!-- single line: email | phone -->
+              <p class="contact-line">
+                <span class="icon solid fa-envelope" aria-hidden="true"></span>
+                <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
+                <span class="sep">|</span>
+                <span class="icon solid fa-phone" aria-hidden="true"></span>
+                <a href="tel:+17024982019">702.498.2019</a>
+              </p>
+
+              <!-- Subject + Message form (mailto) -->
               <form action="mailto:mhp.services.co@gmail.com" method="GET">
                 <div class="fields">
                   <div class="field">
@@ -268,7 +286,7 @@
                   </div>
                   <div class="field">
                     <label for="body">Message</label>
-                    <textarea name="body" id="body" rows="6"></textarea>
+                    <textarea name="body" id="body" rows="6" placeholder="Include your name and a phone number and/or email address."></textarea>
                   </div>
                 </div>
                 <ul class="actions">
@@ -350,7 +368,7 @@
                   <div class="stars" aria-label="Calificación 5 estrellas">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                   </div>
-                  <p class="quote">“Wolthers realiza un trabajo confiable a un costo razonable” - Glen</p>
+                  <p class="quote">“Wolthers realiza un trabajo confiable a un costo razonable” - <strong>Glen</strong></p>
                 </article>
 
                 <article class="card">
@@ -360,12 +378,12 @@
                   <div class="stars" aria-label="Calificación 5 estrellas">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                   </div>
-                  <p class="quote">“En una época en la que el mundo está lleno de estafas, sobrecargos y gente poco confiable, Mario es amable, confiable, justo y muy cumplidor.” - Angela</p>
+                  <p class="quote">“En una época en la que el mundo está lleno de estafas, sobrecargos y gente poco confiable, Mario es amable, confiable, justo y muy cumplidor.” - <strong>Angela</strong></p>
                 </article>
               </div>
             </section>
 
-            <!-- Acerca de (azul) -->
+            <!-- Acerca de (azul, texto blanco) -->
             <section id="about" class="full-bleed-blue">
               <header class="major">
                 <h2>Acerca de</h2>
@@ -390,15 +408,15 @@
               <header class="major">
                 <h2>Póngase en contacto</h2>
               </header>
-              <p>Contáctenos con confianza—nuestro equipo local con licencia responde rápidamente y respalda cada trabajo.</p>
-              <ul class="contact">
-                <li class="icon solid fa-envelope">
-                  <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
-                </li>
-                <li class="icon solid fa-phone">
-                  <a href="tel:+17024982019">702.498.2019</a>
-                </li>
-              </ul>
+              <p>Contáctenos con confianza—nuestro equipo local con licencia responde rápidamente y respalda cada trabajo. <strong>Deje su nombre, número de teléfono y/o correo electrónico para que podamos comunicarnos con usted.</strong></p>
+
+              <p class="contact-line">
+                <span class="icon solid fa-envelope" aria-hidden="true"></span>
+                <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
+                <span class="sep">|</span>
+                <span class="icon solid fa-phone" aria-hidden="true"></span>
+                <a href="tel:+17024982019">702.498.2019</a>
+              </p>
 
               <form action="mailto:mhp.services.co@gmail.com" method="GET">
                 <div class="fields">
@@ -408,7 +426,7 @@
                   </div>
                   <div class="field">
                     <label for="body_es">Mensaje</label>
-                    <textarea name="body" id="body_es" rows="6"></textarea>
+                    <textarea name="body" id="body_es" rows="6" placeholder="Incluya su nombre y un número de teléfono y/o correo electrónico."></textarea>
                   </div>
                 </div>
                 <ul class="actions">
@@ -421,7 +439,7 @@
         </div>
       </div>
 
-      <!-- Sidebar -->
+      <!-- Sidebar (original simple menu restored) -->
       <div id="sidebar">
         <div class="inner">
 
@@ -432,31 +450,15 @@
             </form>
           </section>
 
-          <!-- Menu EN -->
-          <nav id="menu-en">
+          <!-- Original Menu -->
+          <nav id="menu">
             <header class="major">
               <h2>Menu</h2>
             </header>
             <ul>
               <li><a href="#banner">Homepage</a></li>
               <li><a href="#services">Plumbing Services</a></li>
-              <li><a href="#testimonials">Testimonials</a></li>
               <li><a href="#about">About</a></li>
-              <li><a href="#contact">Get in touch</a></li>
-            </ul>
-          </nav>
-
-          <!-- Menu ES -->
-          <nav id="menu-es">
-            <header class="major">
-              <h2>Menú</h2>
-            </header>
-            <ul>
-              <li><a href="#banner">Inicio</a></li>
-              <li><a href="#services">Servicios</a></li>
-              <li><a href="#testimonials">Testimonios</a></li>
-              <li><a href="#about">Acerca de</a></li>
-              <li><a href="#contact">Contacto</a></li>
             </ul>
           </nav>
 
@@ -482,11 +484,15 @@
       (function(){
         var params = new URLSearchParams(location.search);
         var isEs = params.get('lang') === 'es';
-        if (isEs) document.documentElement.classList.add('lang-es');
-        // Adjust toggle href/label
-        var t = document.getElementById('lang-toggle');
-        if (isEs) t.href = location.pathname + '?lang=en';
-        else t.href = location.pathname + '?lang=es';
+
+        // Show/hide site blocks
+        document.getElementById('site-en').style.display = isEs ? 'none' : 'block';
+        document.getElementById('site-es').style.display = isEs ? 'block' : 'none';
+
+        // Keep links pointing to opposite languages on the same path
+        var path = location.pathname;
+        document.getElementById('lnk-en').href = path + '?lang=en';
+        document.getElementById('lnk-es').href = path + '?lang=es';
       })();
     </script>
   </body>
