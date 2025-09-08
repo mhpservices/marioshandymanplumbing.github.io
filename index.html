@@ -18,32 +18,10 @@
         --brand-blue: #1880C8;  /* blue for services/about full-bleed blocks */
       }
 
-      /* ===== Prevent horizontal scrolling ===== */
+      /* ===== Lock horizontal scroll ===== */
       html, body { overflow-x: hidden; max-width: 100%; }
 
-      /* ===== Language links (fixed, top-right; separate links) ===== */
-      #lang-toggle{
-        position: fixed;
-        top: 14px;
-        right: 24px;
-        z-index: 10000;
-        font-weight: 700;
-        font-size: .95rem;
-        letter-spacing: .2px;
-        display: flex;
-        gap: .5rem;
-        align-items: center;
-      }
-      #lang-toggle a{
-        color: var(--accent);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-        white-space: nowrap;
-      }
-      #lang-toggle a:hover{ border-bottom-color: currentColor; }
-      #lang-toggle .sep{ color: #999; opacity: .9; }
-
-      /* Accent line + buttons */
+      /* ===== Accent and buttons ===== */
       .major > :first-child:after,
       .major > h1:after,
       .major > h2:after,
@@ -52,23 +30,49 @@
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
       /* ===== Banner ===== */
-      #banner{ display: flex !important; align-items: flex-end !important; }
+      #banner{
+        position: relative;                 /* for the language links */
+        display: flex !important;
+        align-items: flex-end !important;   /* bottom align */
+      }
       #banner .content{ display:flex; flex-direction: column; }
       #banner .actions{ margin-top: 2rem; }
       #banner .image.object{
         max-width: clamp(220px, 28vw, 420px);
-        align-self: flex-end; /* bottom align with button */
+        align-self: flex-end;
         margin: 0;
       }
       #banner .image.object img{ width: 100%; height: auto; display: block; }
+
+      /* ===== Language links (top-right INSIDE banner only) ===== */
+      .lang-toggle{
+        position: absolute;
+        top: 14px;
+        right: 24px;
+        z-index: 5;
+        font-weight: 700;
+        font-size: .95rem;
+        letter-spacing: .2px;
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+      }
+      .lang-toggle a{
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .lang-toggle a:hover{ border-bottom-color: currentColor; }
+      .lang-toggle .sep{ color: #999; opacity: .9; }
 
       /* ===== Full-bleed blue sections (services/about) ===== */
       .full-bleed-blue{
         position: relative;
         color: #fff;
         border-top: 0 !important;
-        padding-top: 2.75rem;
-        padding-bottom: 2.75rem;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
       }
       .full-bleed-blue::before{
         content: "";
@@ -92,15 +96,18 @@
       .full-bleed-blue .features .icon:before { color: #fff !important; }
       .full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* --- About: force white text and bold the label bits --- */
+      /* About: force white + bold the lead labels */
       #about.full-bleed-blue strong { color:#fff !important; font-weight: 800; }
       #about.full-bleed-blue .alt > li > strong { font-weight: 900; }
 
-      /* ===== More breathing room ABOVE & BELOW every white section ===== */
-      /* (Testimonials & Contact are white sections) */
+      /* ===== BIG breathing room between sections ===== */
+      /* White sections (Testimonials, Contact) */
       #main .inner > section:not(.full-bleed-blue){
-        margin: 6rem 0 !important;   /* bigger top + bottom gaps */
+        margin: 8rem 0 !important;          /* top & bottom */
       }
+      /* Extra space when switching colors (blue -> white and white -> blue) */
+      .full-bleed-blue + section{ margin-top: 8rem !important; }
+      section:not(.full-bleed-blue) + .full-bleed-blue{ margin-top: 8rem !important; }
 
       /* ===== Testimonials ===== */
       #testimonials header.major { margin-bottom: 1.5rem; }
@@ -119,32 +126,27 @@
       .stars i{ display:inline-block; margin-right:.25rem; }
       .stars i:last-child{ margin-right:0; }
 
-      /* ===== Contact (white background; icons/links red) ===== */
+      /* ===== Contact (white, red links/icons) ===== */
       #contact a { color: var(--accent) !important; border-bottom-color: rgba(216,72,56,.35) !important; }
       #contact a:hover { border-bottom-color: var(--accent) !important; }
 
-      /* Make the inline contact icons the same red as the button */
+      /* Inline email | phone with tight icons */
       .contact-line{
-        display: flex;
+        display: inline-flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: .5rem .75rem;
+        gap: .75rem;
         font-size: 1.05rem;
       }
-      .contact-line .sep{ color:#ccc; margin: 0 .25rem; }
-      .contact-line .icon,
-      .contact-line .icon:before{ color: var(--accent) !important; } /* <-- red icons */
-      .contact-line .icon{ margin-right: .25rem; }
+      .contact-line .item{ display:inline-flex; align-items:center; gap:.4rem; }
+      .contact-line .sep{ color:#ccc; }
+      .contact-line i{ color: var(--accent); }  /* red icons tight with text */
+
+      /* More space between textarea and the Send button */
+      #contact form .actions{ margin-top: 2rem; }
     </style>
   </head>
   <body class="is-preload">
-
-    <!-- Language links (RIGHT corner, separate links & fixed) -->
-    <div id="lang-toggle">
-      <a id="lnk-en" href="?lang=en">English</a>
-      <span class="sep">|</span>
-      <a id="lnk-es" href="?lang=es">¿Hablas Español?</a>
-    </div>
 
     <!-- Wrapper -->
     <div id="wrapper">
@@ -163,6 +165,13 @@
 
             <!-- Banner -->
             <section id="banner">
+              <!-- Language toggle lives in banner so it only shows on homepage -->
+              <div class="lang-toggle">
+                <a class="lnk-en" href="?lang=en">English</a>
+                <span class="sep">|</span>
+                <a class="lnk-es" href="?lang=es">¿Hablas Español?</a>
+              </div>
+
               <div class="content">
                 <header>
                   <h1>Mario’s Handy Plumbing</h1>
@@ -177,7 +186,7 @@
               </span>
             </section>
 
-            <!-- Services (ABOVE Testimonials) -->
+            <!-- Services -->
             <section id="services" class="full-bleed-blue">
               <header class="major">
                 <h2>Plumbing Services</h2>
@@ -221,7 +230,6 @@
               </header>
 
               <div class="grid">
-                <!-- LEFT: Glen + Plumber.png -->
                 <article class="card">
                   <a class="image">
                     <img src="images/Plumber.png" alt="Plumber completing a job at a sink" />
@@ -232,7 +240,6 @@
                   <p class="quote">“Wolthers does reliable work at a reasonable cost” - <strong>Glen</strong></p>
                 </article>
 
-                <!-- RIGHT: Angela + Plumberwcustomer.png -->
                 <article class="card">
                   <a class="image">
                     <img src="images/Plumberwcustomer.png" alt="Happy customer shaking hands with plumber" />
@@ -245,7 +252,7 @@
               </div>
             </section>
 
-            <!-- About (blue, all white text; label bits bold) -->
+            <!-- About -->
             <section id="about" class="full-bleed-blue">
               <header class="major">
                 <h2>About</h2>
@@ -265,23 +272,21 @@
               </ul>
             </section>
 
-            <!-- Contact (white, red icons/links; more copy; email | phone inline) -->
+            <!-- Contact -->
             <section id="contact">
               <header class="major">
                 <h2>Get in touch</h2>
               </header>
-              <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job. <strong>Please leave your name, phone number and/or email address so we can reach back to you.</strong></p>
+              <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job. Please leave your name, phone number and/or email address so we can reach back to you.</p>
 
-              <!-- single line: email | phone -->
+              <!-- email | phone single line (tight icons) -->
               <p class="contact-line">
-                <span class="icon solid fa-envelope" aria-hidden="true"></span>
-                <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
+                <span class="item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a></span>
                 <span class="sep">|</span>
-                <span class="icon solid fa-phone" aria-hidden="true"></span>
-                <a href="tel:+17024982019">702.498.2019</a>
+                <span class="item"><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:+17024982019">702.498.2019</a></span>
               </p>
 
-              <!-- Subject + Message form (mailto) -->
+              <!-- Subject + Message -->
               <form action="mailto:mhp.services.co@gmail.com" method="GET">
                 <div class="fields">
                   <div class="field">
@@ -293,7 +298,7 @@
                     <textarea name="body" id="body" rows="6" placeholder="Include your name and a phone number and/or email address."></textarea>
                   </div>
                 </div>
-                <ul class="actions">
+                <ul class="actions" style="margin-top:2rem">
                   <li><button type="submit" class="button primary">Send</button></li>
                 </ul>
               </form>
@@ -307,6 +312,12 @@
 
             <!-- Banner -->
             <section id="banner">
+              <div class="lang-toggle">
+                <a class="lnk-en" href="?lang=en">English</a>
+                <span class="sep">|</span>
+                <a class="lnk-es" href="?lang=es">¿Hablas Español?</a>
+              </div>
+
               <div class="content">
                 <header>
                   <h1>Mario’s Handy Plumbing</h1>
@@ -387,7 +398,7 @@
               </div>
             </section>
 
-            <!-- Acerca de (azul, texto blanco) -->
+            <!-- Acerca de -->
             <section id="about" class="full-bleed-blue">
               <header class="major">
                 <h2>Acerca de</h2>
@@ -407,19 +418,17 @@
               </ul>
             </section>
 
-            <!-- Contacto (blanco, rojo; email | phone inline) -->
+            <!-- Contacto -->
             <section id="contact">
               <header class="major">
                 <h2>Póngase en contacto</h2>
               </header>
-              <p>Contáctenos con confianza—nuestro equipo local con licencia responde rápidamente y respalda cada trabajo. <strong>Deje su nombre, número de teléfono y/o correo electrónico para que podamos comunicarnos con usted.</strong></p>
+              <p>Contáctenos con confianza—nuestro equipo local con licencia responde rápidamente y respalda cada trabajo. Por favor deje su nombre, número de teléfono y/o correo electrónico para que podamos comunicarnos con usted.</p>
 
               <p class="contact-line">
-                <span class="icon solid fa-envelope" aria-hidden="true"></span>
-                <a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a>
+                <span class="item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a></span>
                 <span class="sep">|</span>
-                <span class="icon solid fa-phone" aria-hidden="true"></span>
-                <a href="tel:+17024982019">702.498.2019</a>
+                <span class="item"><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:+17024982019">702.498.2019</a></span>
               </p>
 
               <form action="mailto:mhp.services.co@gmail.com" method="GET">
@@ -433,7 +442,7 @@
                     <textarea name="body" id="body_es" rows="6" placeholder="Incluya su nombre y un número de teléfono y/o correo electrónico."></textarea>
                   </div>
                 </div>
-                <ul class="actions">
+                <ul class="actions" style="margin-top:2rem">
                   <li><button type="submit" class="button primary">Enviar</button></li>
                 </ul>
               </form>
@@ -443,7 +452,7 @@
         </div>
       </div>
 
-      <!-- Sidebar (original simple menu) -->
+      <!-- Sidebar (menu includes ALL sections) -->
       <div id="sidebar">
         <div class="inner">
 
@@ -454,7 +463,7 @@
             </form>
           </section>
 
-          <!-- Original Menu -->
+          <!-- Menu -->
           <nav id="menu">
             <header class="major">
               <h2>Menu</h2>
@@ -462,7 +471,9 @@
             <ul>
               <li><a href="#banner">Homepage</a></li>
               <li><a href="#services">Plumbing Services</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
               <li><a href="#about">About</a></li>
+              <li><a href="#contact">Get in touch</a></li>
             </ul>
           </nav>
 
@@ -493,10 +504,10 @@
         document.getElementById('site-en').style.display = isEs ? 'none' : 'block';
         document.getElementById('site-es').style.display = isEs ? 'block' : 'none';
 
-        // Make links switch languages but keep same path
+        // Keep both sets of links pointing to the correct language
         var path = location.pathname;
-        document.getElementById('lnk-en').href = path + '?lang=en';
-        document.getElementById('lnk-es').href = path + '?lang=es';
+        document.querySelectorAll('.lnk-en').forEach(function(a){ a.href = path + '?lang=en'; });
+        document.querySelectorAll('.lnk-es').forEach(function(a){ a.href = path + '?lang=es'; });
       })();
     </script>
   </body>
