@@ -14,15 +14,16 @@
 
     <style>
       :root{
-        --accent: #D84838;         /* site red */
-        --brand-blue: #1880C8;     /* brand blue */
-        --grid: rgba(24,128,200,.08); /* faint grid lines for hero */
+        --accent: #D84838;          /* site red */
+        --brand-blue: #1880C8;      /* brand blue */
+        --grid: rgba(24,128,200,.08);
+        --hero-top-offset: 2.75rem; /* distance from red line to start grid */
       }
 
       /* ===== No horizontal scroll ===== */
       html, body { overflow-x: hidden; max-width: 100%; }
 
-      /* ===== Accent and buttons ===== */
+      /* ===== Accent + buttons ===== */
       .major > :first-child:after,
       .major > h1:after,
       .major > h2:after,
@@ -44,42 +45,47 @@
       #banner{
         position: relative;                 /* for the language links & bg */
         display: flex !important;
-        align-items: center !important;     /* aesthetically centered */
-        overflow: visible;                  /* allow full-bleed ::before */
-        min-height: clamp(440px, 62vh, 700px);
+        align-items: center !important;     /* vertical centering */
+        justify-content: space-between;     /* balanced left/right */
+        gap: clamp(1.5rem, 6vw, 6rem);
+        overflow: visible;
+        min-height: clamp(460px, 62vh, 720px);
+        padding-top: var(--hero-top-offset); /* content sits below red line */
       }
 
-      /* Full-width, full-bleed blueprint grid background */
+      /* Full-bleed grid that STARTS under the red line */
       #banner::before{
         content: "";
         position: absolute;
         z-index: 0;
-        top: -4rem;                         /* extend a little beyond bounds */
+        top: var(--hero-top-offset);        /* <-- start below red rule */
         left: 50%;
         transform: translateX(-50%);
-        width: 100vw;                       /* full viewport width */
-        height: calc(100% + 8rem);          /* bleed above & below the hero */
+        width: 100vw;                        /* full viewport width */
+        height: calc(100% - var(--hero-top-offset));
         background:
           repeating-linear-gradient(0deg,  var(--grid) 0 1px, transparent 1px 24px),
           repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 24px),
-          radial-gradient(at 25% 30%, rgba(24,128,200,.06), transparent 55%);
+          radial-gradient(at 25% 35%, rgba(24,128,200,.06), transparent 55%);
       }
 
       #banner .content{
-        position: relative; z-index: 1;     /* above the grid */
+        position: relative; z-index: 1;      /* above the grid */
         display:flex; flex-direction: column;
+        max-width: 52rem;                    /* tidy line length */
       }
       #banner .actions{ margin-top: 2rem; display:flex; gap: .75rem; flex-wrap: wrap; }
 
-      /* Slightly smaller faucet image, vertically centered with text */
+      /* Faucet image — slightly smaller and centered with text */
       #banner .image.object{
         position: relative; z-index: 1;
+        flex: 0 0 auto;
         max-width: clamp(160px, 21vw, 300px);
         margin: 0;
       }
       #banner .image.object img{ width: 100%; height: auto; display: block; }
 
-      /* Language links – shown only inside banner (homepage) */
+      /* Language links — inside hero only */
       .lang-toggle{
         position: absolute;
         top: 14px;
@@ -184,9 +190,9 @@
       }
       .contact-line .item{ display:inline-flex; align-items:center; gap:.4rem; }
       .contact-line .sep{ color:#ccc; }
-      .contact-line i{ color: var(--accent); }  /* red icons tight with text */
+      .contact-line i{ color: var(--accent); }
 
-      /* More space between textarea and the Send button */
+      /* Space between textarea and Send button */
       #contact form .actions{ margin-top: 2rem; }
     </style>
   </head>
@@ -207,9 +213,9 @@
                ========================= -->
           <div id="site-en" lang="en">
 
-            <!-- Banner -->
+            <!-- Banner (Homepage) -->
             <section id="banner">
-              <!-- Language links inside banner (homepage only) -->
+              <!-- Language links (hero only) -->
               <div class="lang-toggle">
                 <a class="lnk-en" href="?lang=en">English</a>
                 <span class="sep">|</span>
@@ -222,7 +228,7 @@
                   <p>The job is not done until you, the customer, are satisfied.</p>
                 </header>
 
-                <!-- Value badges (24/7 removed) -->
+                <!-- Value badges -->
                 <div class="hero-badges" aria-label="business highlights">
                   <span class="hero-badge"><i class="fa-solid fa-id-badge" aria-hidden="true"></i>Licensed</span>
                   <span class="hero-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Insured</span>
