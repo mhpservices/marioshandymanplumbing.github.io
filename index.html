@@ -14,12 +14,12 @@
 
     <style>
       :root{
-        --accent: #D84838;      /* site red */
-        --brand-blue: #1880C8;  /* brand blue */
+        --accent: #D84838;         /* site red */
+        --brand-blue: #1880C8;     /* brand blue */
         --grid: rgba(24,128,200,.08); /* faint grid lines for hero */
       }
 
-      /* ===== Lock horizontal scroll ===== */
+      /* ===== No horizontal scroll ===== */
       html, body { overflow-x: hidden; max-width: 100%; }
 
       /* ===== Accent and buttons ===== */
@@ -30,7 +30,6 @@
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
-      /* Outline / secondary button */
       .button.outline{
         background: transparent !important;
         color: var(--accent) !important;
@@ -43,39 +42,39 @@
 
       /* ===== HERO / BANNER ===== */
       #banner{
-        position: relative;                 /* for language links & bg */
+        position: relative;                 /* for the language links & bg */
         display: flex !important;
-        align-items: flex-end !important;   /* bottom align with buttons */
-        overflow: hidden;
-        min-height: clamp(420px, 62vh, 680px);
+        align-items: center !important;     /* aesthetically centered */
+        overflow: visible;                  /* allow full-bleed ::before */
+        min-height: clamp(440px, 62vh, 700px);
       }
 
-      /* Full-width blueprint grid across the entire hero */
+      /* Full-width, full-bleed blueprint grid background */
       #banner::before{
         content: "";
         position: absolute;
         z-index: 0;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        top: -4rem;                         /* extend a little beyond bounds */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;                       /* full viewport width */
+        height: calc(100% + 8rem);          /* bleed above & below the hero */
         background:
           repeating-linear-gradient(0deg,  var(--grid) 0 1px, transparent 1px 24px),
           repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 24px),
-          radial-gradient(at 20% 25%, rgba(24,128,200,.06), transparent 45%);
+          radial-gradient(at 25% 30%, rgba(24,128,200,.06), transparent 55%);
       }
 
       #banner .content{
-        position: relative; z-index: 1;     /* above grid */
+        position: relative; z-index: 1;     /* above the grid */
         display:flex; flex-direction: column;
       }
       #banner .actions{ margin-top: 2rem; display:flex; gap: .75rem; flex-wrap: wrap; }
 
-      /* Smaller hero image */
+      /* Slightly smaller faucet image, vertically centered with text */
       #banner .image.object{
         position: relative; z-index: 1;
-        max-width: clamp(160px, 22vw, 320px);  /* reduced size */
-        align-self: flex-end;                  /* bottom align with button */
+        max-width: clamp(160px, 21vw, 300px);
         margin: 0;
       }
       #banner .image.object img{ width: 100%; height: auto; display: block; }
@@ -210,7 +209,7 @@
 
             <!-- Banner -->
             <section id="banner">
-              <!-- Language links inside banner so they appear only on homepage -->
+              <!-- Language links inside banner (homepage only) -->
               <div class="lang-toggle">
                 <a class="lnk-en" href="?lang=en">English</a>
                 <span class="sep">|</span>
@@ -223,7 +222,7 @@
                   <p>The job is not done until you, the customer, are satisfied.</p>
                 </header>
 
-                <!-- Value badges (removed 24/7 Emergency per request) -->
+                <!-- Value badges (24/7 removed) -->
                 <div class="hero-badges" aria-label="business highlights">
                   <span class="hero-badge"><i class="fa-solid fa-id-badge" aria-hidden="true"></i>Licensed</span>
                   <span class="hero-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Insured</span>
@@ -335,14 +334,12 @@
               </header>
               <p>Contact us with confidence—our licensed local team responds quickly and stands behind every job. Please leave your name, phone number and/or email address so we can reach back to you.</p>
 
-              <!-- email | phone single line (tight icons) -->
               <p class="contact-line">
                 <span class="item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:mhp.services.co@gmail.com">mhp.services.co@gmail.com</a></span>
                 <span class="sep">|</span>
                 <span class="item"><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:+17024982019">702.498.2019</a></span>
               </p>
 
-              <!-- Subject + Message -->
               <form action="mailto:mhp.services.co@gmail.com" method="GET">
                 <div class="fields">
                   <div class="field">
@@ -380,7 +377,6 @@
                   <p>El trabajo no termina hasta que usted, el cliente, esté satisfecho.</p>
                 </header>
 
-                <!-- Badges sin 24/7 -->
                 <div class="hero-badges" aria-label="puntos destacados del negocio">
                   <span class="hero-badge"><i class="fa-solid fa-id-badge" aria-hidden="true"></i>Con licencia</span>
                   <span class="hero-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Asegurado</span>
@@ -570,7 +566,7 @@
         document.getElementById('site-en').style.display = isEs ? 'none' : 'block';
         document.getElementById('site-es').style.display = isEs ? 'block' : 'none';
 
-        // Ensure links point to the correct language
+        // Ensure links point to the right language
         var path = location.pathname;
         document.querySelectorAll('.lnk-en').forEach(a => a.href = path + '?lang=en');
         document.querySelectorAll('.lnk-es').forEach(a => a.href = path + '?lang=es');
