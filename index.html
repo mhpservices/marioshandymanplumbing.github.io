@@ -43,27 +43,26 @@
 
       /* ===== HERO / BANNER ===== */
       #banner{
-        position: relative;                 /* for the language links & bg */
+        position: relative;                 /* for language links & bg */
         display: flex !important;
         align-items: flex-end !important;   /* bottom align with buttons */
         overflow: hidden;
         min-height: clamp(420px, 62vh, 680px);
       }
 
-      /* Decorative blueprint grid behind the left half of hero */
+      /* Full-width blueprint grid across the entire hero */
       #banner::before{
         content: "";
         position: absolute;
         z-index: 0;
-        top: -6%;
-        left: -4%;
-        width: 66%;
-        height: 140%;
-        border-radius: 12px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background:
           repeating-linear-gradient(0deg,  var(--grid) 0 1px, transparent 1px 24px),
           repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 24px),
-          radial-gradient( at 20% 25%, rgba(24,128,200,.08), transparent 40%);
+          radial-gradient(at 20% 25%, rgba(24,128,200,.06), transparent 45%);
       }
 
       #banner .content{
@@ -75,7 +74,7 @@
       /* Smaller hero image */
       #banner .image.object{
         position: relative; z-index: 1;
-        max-width: clamp(160px, 22vw, 320px);  /* was larger; now smaller */
+        max-width: clamp(160px, 22vw, 320px);  /* reduced size */
         align-self: flex-end;                  /* bottom align with button */
         margin: 0;
       }
@@ -224,12 +223,11 @@
                   <p>The job is not done until you, the customer, are satisfied.</p>
                 </header>
 
-                <!-- Value badges -->
+                <!-- Value badges (removed 24/7 Emergency per request) -->
                 <div class="hero-badges" aria-label="business highlights">
                   <span class="hero-badge"><i class="fa-solid fa-id-badge" aria-hidden="true"></i>Licensed</span>
                   <span class="hero-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Insured</span>
                   <span class="hero-badge"><i class="fa-solid fa-house" aria-hidden="true"></i>Locally owned</span>
-                  <span class="hero-badge"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>24/7 Emergency</span>
                 </div>
 
                 <!-- CTAs -->
@@ -382,11 +380,11 @@
                   <p>El trabajo no termina hasta que usted, el cliente, esté satisfecho.</p>
                 </header>
 
+                <!-- Badges sin 24/7 -->
                 <div class="hero-badges" aria-label="puntos destacados del negocio">
                   <span class="hero-badge"><i class="fa-solid fa-id-badge" aria-hidden="true"></i>Con licencia</span>
                   <span class="hero-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Asegurado</span>
                   <span class="hero-badge"><i class="fa-solid fa-house" aria-hidden="true"></i>Local</span>
-                  <span class="hero-badge"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>Emergencias 24/7</span>
                 </div>
 
                 <ul class="actions">
@@ -572,7 +570,7 @@
         document.getElementById('site-en').style.display = isEs ? 'none' : 'block';
         document.getElementById('site-es').style.display = isEs ? 'block' : 'none';
 
-        // Keep both sets of links pointing to the correct language
+        // Ensure links point to the correct language
         var path = location.pathname;
         document.querySelectorAll('.lnk-en').forEach(a => a.href = path + '?lang=en');
         document.querySelectorAll('.lnk-es').forEach(a => a.href = path + '?lang=es');
