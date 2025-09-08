@@ -15,7 +15,8 @@
     <style>
       :root{
         --accent: #D84838;      /* site red */
-        --brand-blue: #1880C8;  /* blue for services/about full-bleed blocks */
+        --brand-blue: #1880C8;  /* brand blue */
+        --grid: rgba(24,128,200,.08); /* faint grid lines for hero */
       }
 
       /* ===== Lock horizontal scroll ===== */
@@ -29,27 +30,63 @@
       .button.primary,
       .button.primary:hover { background-color: var(--accent) !important; border-color: var(--accent) !important; }
 
-      /* ===== Banner ===== */
-      #banner{
-        position: relative;                 /* for the language links */
-        display: flex !important;
-        align-items: flex-end !important;   /* bottom align */
+      /* Outline / secondary button */
+      .button.outline{
+        background: transparent !important;
+        color: var(--accent) !important;
+        border-color: var(--accent) !important;
       }
-      #banner .content{ display:flex; flex-direction: column; }
-      #banner .actions{ margin-top: 2rem; }
+      .button.outline:hover{
+        background: var(--accent) !important;
+        color: #fff !important;
+      }
+
+      /* ===== HERO / BANNER ===== */
+      #banner{
+        position: relative;                 /* for the language links & bg */
+        display: flex !important;
+        align-items: flex-end !important;   /* bottom align with buttons */
+        overflow: hidden;
+        min-height: clamp(420px, 62vh, 680px);
+      }
+
+      /* Decorative blueprint grid behind the left half of hero */
+      #banner::before{
+        content: "";
+        position: absolute;
+        z-index: 0;
+        top: -6%;
+        left: -4%;
+        width: 66%;
+        height: 140%;
+        border-radius: 12px;
+        background:
+          repeating-linear-gradient(0deg,  var(--grid) 0 1px, transparent 1px 24px),
+          repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 24px),
+          radial-gradient( at 20% 25%, rgba(24,128,200,.08), transparent 40%);
+      }
+
+      #banner .content{
+        position: relative; z-index: 1;     /* above grid */
+        display:flex; flex-direction: column;
+      }
+      #banner .actions{ margin-top: 2rem; display:flex; gap: .75rem; flex-wrap: wrap; }
+
+      /* Smaller hero image */
       #banner .image.object{
-        max-width: clamp(220px, 28vw, 420px);
-        align-self: flex-end;
+        position: relative; z-index: 1;
+        max-width: clamp(160px, 22vw, 320px);  /* was larger; now smaller */
+        align-self: flex-end;                  /* bottom align with button */
         margin: 0;
       }
       #banner .image.object img{ width: 100%; height: auto; display: block; }
 
-      /* ===== Language links (top-right INSIDE banner only) ===== */
+      /* Language links – shown only inside banner (homepage) */
       .lang-toggle{
         position: absolute;
         top: 14px;
         right: 24px;
-        z-index: 5;
+        z-index: 2;
         font-weight: 700;
         font-size: .95rem;
         letter-spacing: .2px;
@@ -65,6 +102,22 @@
       }
       .lang-toggle a:hover{ border-bottom-color: currentColor; }
       .lang-toggle .sep{ color: #999; opacity: .9; }
+
+      /* Hero badges (chips) */
+      .hero-badges{
+        display: flex; flex-wrap: wrap; gap: .5rem .5rem; margin-top: 1rem;
+      }
+      .hero-badge{
+        display: inline-flex; align-items: center; gap: .45rem;
+        padding: .35rem .65rem;
+        border-radius: 999px;
+        border: 1px solid #e6eef5;
+        background: #fff;
+        font-weight: 700; font-size: .9rem;
+        box-shadow: 0 1px 0 rgba(0,0,0,.04);
+        color: #415262;
+      }
+      .hero-badge i{ color: var(--brand-blue); }
 
       /* ===== Full-bleed blue sections (services/about) ===== */
       .full-bleed-blue{
@@ -96,16 +149,14 @@
       .full-bleed-blue .features .icon:before { color: #fff !important; }
       .full-bleed-blue .features .icon:before { border-color: rgba(255,255,255,.6) !important; }
 
-      /* About: force white + bold the lead labels */
+      /* About: white text + bold labels */
       #about.full-bleed-blue strong { color:#fff !important; font-weight: 800; }
       #about.full-bleed-blue .alt > li > strong { font-weight: 900; }
 
       /* ===== BIG breathing room between sections ===== */
-      /* White sections (Testimonials, Contact) */
       #main .inner > section:not(.full-bleed-blue){
-        margin: 8rem 0 !important;          /* top & bottom */
+        margin: 8rem 0 !important;
       }
-      /* Extra space when switching colors (blue -> white and white -> blue) */
       .full-bleed-blue + section{ margin-top: 8rem !important; }
       section:not(.full-bleed-blue) + .full-bleed-blue{ margin-top: 8rem !important; }
 
@@ -126,17 +177,12 @@
       .stars i{ display:inline-block; margin-right:.25rem; }
       .stars i:last-child{ margin-right:0; }
 
-      /* ===== Contact (white, red links/icons) ===== */
+      /* ===== Contact (white, red links/icons; inline email | phone) ===== */
       #contact a { color: var(--accent) !important; border-bottom-color: rgba(216,72,56,.35) !important; }
       #contact a:hover { border-bottom-color: var(--accent) !important; }
 
-      /* Inline email | phone with tight icons */
       .contact-line{
-        display: inline-flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: .75rem;
-        font-size: 1.05rem;
+        display: inline-flex; flex-wrap: wrap; align-items: center; gap: .75rem; font-size: 1.05rem;
       }
       .contact-line .item{ display:inline-flex; align-items:center; gap:.4rem; }
       .contact-line .sep{ color:#ccc; }
@@ -165,7 +211,7 @@
 
             <!-- Banner -->
             <section id="banner">
-              <!-- Language toggle lives in banner so it only shows on homepage -->
+              <!-- Language links inside banner so they appear only on homepage -->
               <div class="lang-toggle">
                 <a class="lnk-en" href="?lang=en">English</a>
                 <span class="sep">|</span>
@@ -177,10 +223,22 @@
                   <h1>Mario’s Handy Plumbing</h1>
                   <p>The job is not done until you, the customer, are satisfied.</p>
                 </header>
+
+                <!-- Value badges -->
+                <div class="hero-badges" aria-label="business highlights">
+                  <span class="hero-badge"><i class="fa-solid fa-id-badge" aria-hidden="true"></i>Licensed</span>
+                  <span class="hero-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Insured</span>
+                  <span class="hero-badge"><i class="fa-solid fa-house" aria-hidden="true"></i>Locally owned</span>
+                  <span class="hero-badge"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>24/7 Emergency</span>
+                </div>
+
+                <!-- CTAs -->
                 <ul class="actions">
                   <li><a href="#about" class="button big primary">Learn More</a></li>
+                  <li><a href="tel:+17024982019" class="button big outline" aria-label="Call 702-498-2019 now">Call Now</a></li>
                 </ul>
               </div>
+
               <span class="image object">
                 <img src="images/MHP LOGO (1).png" alt="Mario’s Handy Plumbing logo" />
               </span>
@@ -323,10 +381,20 @@
                   <h1>Mario’s Handy Plumbing</h1>
                   <p>El trabajo no termina hasta que usted, el cliente, esté satisfecho.</p>
                 </header>
+
+                <div class="hero-badges" aria-label="puntos destacados del negocio">
+                  <span class="hero-badge"><i class="fa-solid fa-id-badge" aria-hidden="true"></i>Con licencia</span>
+                  <span class="hero-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Asegurado</span>
+                  <span class="hero-badge"><i class="fa-solid fa-house" aria-hidden="true"></i>Local</span>
+                  <span class="hero-badge"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>Emergencias 24/7</span>
+                </div>
+
                 <ul class="actions">
                   <li><a href="#about" class="button big primary">Más información</a></li>
+                  <li><a href="tel:+17024982019" class="button big outline" aria-label="Llamar ahora 702-498-2019">Llamar ahora</a></li>
                 </ul>
               </div>
+
               <span class="image object">
                 <img src="images/MHP LOGO (1).png" alt="Logotipo de Mario’s Handy Plumbing" />
               </span>
@@ -506,8 +574,8 @@
 
         // Keep both sets of links pointing to the correct language
         var path = location.pathname;
-        document.querySelectorAll('.lnk-en').forEach(function(a){ a.href = path + '?lang=en'; });
-        document.querySelectorAll('.lnk-es').forEach(function(a){ a.href = path + '?lang=es'; });
+        document.querySelectorAll('.lnk-en').forEach(a => a.href = path + '?lang=en');
+        document.querySelectorAll('.lnk-es').forEach(a => a.href = path + '?lang=es');
       })();
     </script>
   </body>
